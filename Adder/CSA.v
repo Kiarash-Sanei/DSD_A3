@@ -1,4 +1,4 @@
-module CSA_16bit (input [15:0] A, input [15:0] B,
+module CSA_16bit (input [15:0] A, input [15:0] B, input C_in,
                   output C_out, output [15:0] S);
     wire C_0, C_1, C_2;
     wire C_1_0, C_1_1, C_2_0, C_2_1, C_3_0, C_3_1;
@@ -6,7 +6,7 @@ module CSA_16bit (input [15:0] A, input [15:0] B,
 
     parameter N = 4;
 
-    A #(.N(N)) A_0(.A(A[3:0]), .B(B[3:0]), .C_in(1'b0), .C_out(C_0), .S(S[3:0]));
+    A #(.N(N)) A_0(.A(A[3:0]), .B(B[3:0]), .C_in(C_in), .C_out(C_0), .S(S[3:0]));
     A #(.N(N)) A_1_0(.A(A[7:4]), .B(B[7:4]), .C_in(1'b0), .C_out(C_1_0), .S(S_1_0));
     A #(.N(N)) A_1_1(.A(A[7:4]), .B(B[7:4]), .C_in(1'b1), .C_out(C_1_1), .S(S_1_1));
     A #(.N(N)) A_2_0(.A(A[11:8]), .B(B[11:8]), .C_in(1'b0), .C_out(C_2_0), .S(S_2_0));
