@@ -64,6 +64,30 @@ module SAMTB;
         @(posedge Done); #100;
         CD();
 
+        Multiplicand = 8'd5;
+        Multiplier = 8'd3;
+        Start = 1'b1;
+        @(posedge Clock);
+        Start = 1'b0;
+        @(posedge Done); #100;
+        CD();
+
+        Multiplicand = 8'd12;
+        Multiplier = 8'd7;
+        Start = 1'b1;
+        @(posedge Clock);
+        Start = 1'b0;
+        @(posedge Done); #100;
+        CD();
+
+        Multiplicand = 8'b11111011;
+        Multiplier = 8'd3;
+        Start = 1'b1;
+        @(posedge Clock);
+        Start = 1'b0;
+        @(posedge Done); #100;
+        CD();
+
         $display("All PASS!");
         $finish;
     end
