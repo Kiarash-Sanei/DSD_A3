@@ -1,0 +1,92 @@
+-------------------------------------------
+Inputs: Multiplicand =     12, Multiplier =     10
+Output: Product =         120
+Expected: Product =         120
+	Result: [PASS]
+-------------------------------------------
+-------------------------------------------
+Inputs: Multiplicand =    150, Multiplier =      0
+Output: Product =           0
+Expected: Product =           0
+	Result: [PASS]
+-------------------------------------------
+-------------------------------------------
+Inputs: Multiplicand =    150, Multiplier =      2
+Output: Product =         300
+Expected: Product =         300
+	Result: [PASS]
+-------------------------------------------
+-------------------------------------------
+Inputs: Multiplicand =    255, Multiplier =    250
+Output: Product =       63750
+Expected: Product =       63750
+	Result: [PASS]
+-------------------------------------------
+-------------------------------------------
+Inputs: Multiplicand =    -12, Multiplier =     10
+Output: Product =        -120
+Expected: Product =        -120
+	Result: [PASS]
+-------------------------------------------
+-------------------------------------------
+Inputs: Multiplicand =     12, Multiplier =    -10
+Output: Product =        -120
+Expected: Product =        -120
+	Result: [PASS]
+-------------------------------------------
+-------------------------------------------
+Inputs: Multiplicand =    -12, Multiplier =    -10
+Output: Product =         120
+Expected: Product =         120
+	Result: [PASS]
+-------------------------------------------
+-------------------------------------------
+Inputs: Multiplicand =     -1, Multiplier =      1
+Output: Product =          -1
+Expected: Product =          -1
+	Result: [PASS]
+-------------------------------------------
+-------------------------------------------
+Inputs: Multiplicand =      1, Multiplier =     -1
+Output: Product =          -1
+Expected: Product =          -1
+	Result: [PASS]
+-------------------------------------------
+-------------------------------------------
+Inputs: Multiplicand =     -1, Multiplier =     -1
+Output: Product =           1
+Expected: Product =           1
+	Result: [PASS]
+-------------------------------------------
+-------------------------------------------
+Inputs: Multiplicand = -32768, Multiplier =      1
+Output: Product =      -32768
+Expected: Product =      -32768
+	Result: [PASS]
+-------------------------------------------
+-------------------------------------------
+Inputs: Multiplicand =      1, Multiplier = -32768
+Output: Product =      -32768
+Expected: Product =      -32768
+	Result: [PASS]
+-------------------------------------------
+-------------------------------------------
+Inputs: Multiplicand = -32768, Multiplier =     -1
+Output: Product =       32768
+Expected: Product =       32768
+	Result: [PASS]
+-------------------------------------------
+-------------------------------------------
+Inputs: Multiplicand = -32768, Multiplier = -32768
+Output: Product =  1073741824
+Expected: Product =  1073741824
+	Result: [PASS]
+-------------------------------------------
+-------------------------------------------
+Inputs: Multiplicand = -12345, Multiplier = -23456
+Output: Product =   289564320
+Expected: Product =   289564320
+	Result: [PASS]
+-------------------------------------------
+All PASS!
+KTB.v:156: $finish called at 6785 (1s)

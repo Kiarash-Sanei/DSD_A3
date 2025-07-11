@@ -5,10 +5,8 @@ module RDTB;
     reg [15:0] Dividend;
     reg [15:0] Divisor;
     wire [15:0] Quotient;
-    wire [15:0] Remainder;
     wire Done;
     reg [15:0] Expected_Quotient;
-    reg [15:0] Expected_Remainder;
     RD dut (
         .Clock(Clock),
         .Reset(Reset),
@@ -16,7 +14,6 @@ module RDTB;
         .Dividend(Dividend),
         .Divisor(Divisor),
         .Quotient(Quotient),
-        .Remainder(Remainder),
         .Done(Done)
     );
     initial begin
@@ -25,7 +22,7 @@ module RDTB;
     end
     initial begin
         Dividend = 16'd0;
-        Divisor = 16'd1;
+        Divisor = 16'd0;
         Start = 1'b0;
         Reset = 1'b1; #20;
         Reset = 1'b0; #10;
@@ -45,8 +42,8 @@ module RDTB;
         @(posedge Done); #100;
         CD();
         
-        Dividend = 16'd65535;
-        Divisor = 16'd255;
+        Dividend = 16'd255;
+        Divisor = 16'd65535;
         Start = 1'b1;
         @(posedge Clock);
         Start = 1'b0;
@@ -60,9 +57,41 @@ module RDTB;
         Start = 1'b0;
         @(posedge Done); #100;
         CD();
-        
-        Dividend = 16'd32768;
-        Divisor = 16'd256;
+
+        Dividend = -16'sd100;
+        Divisor = 16'sd3;
+        Start = 1'b1;
+        @(posedge Clock);
+        Start = 1'b0;
+        @(posedge Done); #100;
+        CD();
+
+        Dividend = 16'sd100;
+        Divisor = -16'sd3;
+        Start = 1'b1;
+        @(posedge Clock);
+        Start = 1'b0;
+        @(posedge Done); #100;
+        CD();
+
+        Dividend = -16'sd100;
+        Divisor = -16'sd3;
+        Start = 1'b1;
+        @(posedge Clock);
+        Start = 1'b0;
+        @(posedge Done); #100;
+        CD();
+
+        Dividend = 16'sd32768;
+        Divisor = 16'sd256;
+        Start = 1'b1;
+        @(posedge Clock);
+        Start = 1'b0;
+        @(posedge Done); #100;
+        CD();
+
+        Dividend = -16'sd32768;
+        Divisor = 16'sd256;
         Start = 1'b1;
         @(posedge Clock);
         Start = 1'b0;
@@ -74,13 +103,12 @@ module RDTB;
     end
     task CD ();
     begin
-        Expected_Quotient = Dividend / Divisor;
-        Expected_Remainder = Dividend % Divisor;
+        Expected_Quotient = $signed(Dividend) / $signed(Divisor);
         $display("-------------------------------------------");
-        $display("Inputs: Dividend = %d, Divisor = %d", Dividend, Divisor);
-        $display("Output: Quotient = %d, Remainder = %d", Quotient, Remainder);
-        $display("Expected: Quotient = %d, Remainder = %d", Expected_Quotient, Expected_Remainder);
-        if (Quotient === Expected_Quotient && Remainder === Expected_Remainder) begin
+        $display("Inputs: Dividend = %d, Divisor = %d", $signed(Dividend), $signed(Divisor));
+        $display("Output: Quotient = %d", $signed(Quotient));
+        $display("Expected: Quotient = %d", $signed(Expected_Quotient));
+        if (Quotient === Expected_Quotient) begin
             $display("\tResult: [PASS]");
         end else begin
             $display("\tResult: [FAIL]");
