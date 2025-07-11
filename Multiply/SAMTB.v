@@ -94,12 +94,12 @@ module SAMTB;
 
     task CD ();
     begin
-        Expected_Product = $signed(Multiplicand) * $signed(Multiplier);
+        Expected_Product = Multiplicand * Multiplier;
 
         $display("-------------------------------------------");
-        $display("Inputs: Multiplicand = %d, Multiplier = %d", $signed(Multiplicand), $signed(Multiplier));
-        $display("Output: Product = %d", $signed(Product));
-        $display("Expected: Product = %d", $signed(Expected_Product));
+        $display("Inputs: Multiplicand = %d, Multiplier = %d", Multiplicand, Multiplier);
+        $display("Output: Product = %d", Product);
+        $display("Expected: Product = %d", Expected_Product);
 
         if (Product === Expected_Product) begin
             $display("\tResult: [PASS]");

@@ -64,6 +64,94 @@ module MULTB;
         @(posedge Done); #100;
         CD();
 
+        Multiplicand = -16'sd12;
+        Multiplier = 16'sd10;
+        Start = 1'b1;
+        @(posedge Clock);
+        Start = 1'b0;
+        @(posedge Done); #100;
+        CD();
+
+        Multiplicand = 16'sd12;
+        Multiplier = -16'sd10;
+        Start = 1'b1;
+        @(posedge Clock);
+        Start = 1'b0;
+        @(posedge Done); #100;
+        CD();
+
+        Multiplicand = -16'sd12;
+        Multiplier = -16'sd10;
+        Start = 1'b1;
+        @(posedge Clock);
+        Start = 1'b0;
+        @(posedge Done); #100;
+        CD();
+
+        Multiplicand = -16'sd1;
+        Multiplier = 16'sd1;
+        Start = 1'b1;
+        @(posedge Clock);
+        Start = 1'b0;
+        @(posedge Done); #100;
+        CD();
+
+        Multiplicand = 16'sd1;
+        Multiplier = -16'sd1;
+        Start = 1'b1;
+        @(posedge Clock);
+        Start = 1'b0;
+        @(posedge Done); #100;
+        CD();
+
+        Multiplicand = -16'sd1;
+        Multiplier = -16'sd1;
+        Start = 1'b1;
+        @(posedge Clock);
+        Start = 1'b0;
+        @(posedge Done); #100;
+        CD();
+
+        Multiplicand = -16'sd32768;
+        Multiplier = 16'sd1;
+        Start = 1'b1;
+        @(posedge Clock);
+        Start = 1'b0;
+        @(posedge Done); #100;
+        CD();
+
+        Multiplicand = 16'sd1;
+        Multiplier = -16'sd32768;
+        Start = 1'b1;
+        @(posedge Clock);
+        Start = 1'b0;
+        @(posedge Done); #100;
+        CD();
+
+        Multiplicand = -16'sd32768;
+        Multiplier = -16'sd1;
+        Start = 1'b1;
+        @(posedge Clock);
+        Start = 1'b0;
+        @(posedge Done); #100;
+        CD();
+
+        Multiplicand = -16'sd32768;
+        Multiplier = -16'sd32768;
+        Start = 1'b1;
+        @(posedge Clock);
+        Start = 1'b0;
+        @(posedge Done); #100;
+        CD();
+
+        Multiplicand = -16'sd12345;
+        Multiplier = -16'sd23456;
+        Start = 1'b1;
+        @(posedge Clock);
+        Start = 1'b0;
+        @(posedge Done); #100;
+        CD();
+
         $display("All PASS!");
         $finish;
     end

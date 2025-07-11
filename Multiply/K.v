@@ -1,187 +1,114 @@
 module K (
-    input Clock, Reset, Start,
-    input [15:0] Multiplicand,
+    input Clock,
+    input Reset,
+    input Start,
     input [15:0] Multiplier,
-    output reg [31:0] Product,
-    output reg Done
+    input [15:0] Multiplicand,
+    output [31:0] Product,
+    output Done
 );
+    parameter IDLE = 4'h0;
+    parameter PRE_CALC = 4'h1;
+    parameter START_MUL_Z0 = 4'h2;
+    parameter WAIT_MUL_Z0 = 4'h3;
+    parameter START_MUL_Z2 = 4'h4;
+    parameter WAIT_MUL_Z2 = 4'h5;
+    parameter START_MUL_Z1 = 4'h6;
+    parameter WAIT_MUL_Z1 = 4'h7;
+    parameter FINAL_CALC = 4'h8;
+    parameter DONE = 4'h9;
 
-    localparam IDLE = 4'b0000, PRECALCULATION = 4'b0001, 
-               START_Z0 = 4'b0010, WAIT_Z0 = 4'b0011, 
-               START_Z1 = 4'b0100, WAIT_Z1 = 4'b0101, 
-               START_Z2 = 4'b0110, WAIT_Z2 = 4'b0111, 
-               FINAL_CALCULATION = 4'b1000, DONE = 4'b1001,
-               ZERO_CASE = 4'b1010;
+    reg [3:0] state_reg, state_next;
 
-    reg [3:0] State_reg, State_next;
-    
-    reg [15:0] z0_reg, z2_reg;
-    reg [16:0] z1_reg;
-    
-    reg [8:0] x_sum, y_sum;
-    
-    wire [15:0] Product_0, Product_1, Product_2;
-    wire Done_0, Done_1, Done_2;
-    reg Start_0, Start_1, Start_2;
+    reg [7:0]  xh_reg, xl_reg, yh_reg, yl_reg;
+    reg [8:0]  sum_x, sum_y;
+    reg [15:0] z0_reg, z2_reg, z1_intermediate_reg;
+    reg [15:0] z1_reg;
+    reg [31:0] product_reg;
+    reg        done_reg;
 
-    SAM sam_0 (
-        .Clock(Clock),
-        .Reset(Reset),
-        .Start(Start_0),
-        .Multiplicand(Multiplicand[7:0]),
-        .Multiplier(Multiplier[7:0]),
-        .Product(Product_0),
-        .Done(Done_0)
+    wire [15:0] mul0_product, mul1_product, mul2_product;
+    wire        mul0_done, mul1_done, mul2_done;
+    reg         mul0_start, mul1_start, mul2_start;
+
+    reg multiplier_sign, multiplicand_sign, result_sign;
+    reg [15:0] abs_multiplier, abs_multiplicand;
+
+    assign Product = product_reg;
+    assign Done = done_reg;
+
+    SAM mul0_inst (
+        .Clock(Clock), .Reset(Reset), .Start(mul0_start),
+        .Multiplicand(xl_reg), .Multiplier(yl_reg),
+        .Product(mul0_product), .Done(mul0_done)
     );
-    
-    SAM sam_1 (
-        .Clock(Clock),
-        .Reset(Reset),
-        .Start(Start_1),
-        .Multiplicand(Multiplicand[15:8]),
-        .Multiplier(Multiplier[15:8]),
-        .Product(Product_1),
-        .Done(Done_1)
+    SAM mul2_inst (
+        .Clock(Clock), .Reset(Reset), .Start(mul2_start),
+        .Multiplicand(xh_reg), .Multiplier(yh_reg),
+        .Product(mul2_product), .Done(mul2_done)
     );
-    
-    SAM sam_2 (
-        .Clock(Clock),
-        .Reset(Reset),
-        .Start(Start_2),
-        .Multiplicand(x_sum[7:0]),
-        .Multiplier(y_sum[7:0]),
-        .Product(Product_2),
-        .Done(Done_2)
+    SAM mul1_inst (
+        .Clock(Clock), .Reset(Reset), .Start(mul1_start),
+        .Multiplicand(sum_x[7:0]), .Multiplier(sum_y[7:0]),
+        .Product(mul1_product), .Done(mul1_done)
     );
 
     always @(posedge Clock or posedge Reset) begin
         if (Reset) begin
-            State_reg <= IDLE;
-            Done <= 1'b0;
-            Product <= 32'b0;
-            z0_reg <= 16'b0;
-            z1_reg <= 17'b0;
-            z2_reg <= 16'b0;
-            x_sum <= 9'b0;
-            y_sum <= 9'b0;
+            state_reg <= IDLE;
+            done_reg  <= 1'b0;
         end else begin
-            State_reg <= State_next;
-            
-            case (State_reg)
-                PRECALCULATION: begin
-                    x_sum <= {1'b0, Multiplicand[15:8]} + {1'b0, Multiplicand[7:0]};
-                    y_sum <= {1'b0, Multiplier[15:8]} + {1'b0, Multiplier[7:0]};
-                end
-                
-                WAIT_Z0: begin
-                    if (Done_0) begin
-                        z0_reg <= Product_0;
-                    end
-                end
-                
-                WAIT_Z1: begin
-                    if (Done_1) begin
-                        z2_reg <= Product_1;
-                    end
-                end
-                
-                WAIT_Z2: begin
-                    if (Done_2) begin
-                        z1_reg <= {1'b0, Product_2} - {1'b0, z0_reg} - {1'b0, z2_reg};
-                    end
-                end
-                
-                FINAL_CALCULATION: begin
-                    Product <= ({16'b0, z2_reg} << 16) + ({15'b0, z1_reg} << 8) + {16'b0, z0_reg};
-                    Done <= 1'b1;
-                end
-                
-                ZERO_CASE: begin
-                    Product <= 32'b0;
-                    Done <= 1'b1;
-                end
-                
-                IDLE: begin
-                    if (Start) begin
-                        Done <= 1'b0;
-                    end
-                end
-            endcase
+            state_reg <= state_next;
+            if (state_next == DONE) begin
+                // Apply sign at the end
+                if (result_sign)
+                    product_reg <= ~unsigned_product + 1;
+                else
+                    product_reg <= unsigned_product;
+                done_reg    <= 1'b1;
+            end else if (state_reg == IDLE) begin
+                done_reg <= 1'b0;
+            end
         end
     end
 
+    reg [31:0] unsigned_product;
+
     always @(*) begin
-        State_next = State_reg;
-        Start_0 = 1'b0;
-        Start_1 = 1'b0;
-        Start_2 = 1'b0;
-        
-        case (State_reg)
-            IDLE: begin
-                if (Start) begin
-                    if (Multiplicand == 16'b0 || Multiplier == 16'b0) begin
-                        State_next = ZERO_CASE;
-                    end else begin
-                        State_next = PRECALCULATION;
-                    end
-                end
+        state_next = state_reg;
+        mul0_start = 1'b0;
+        mul1_start = 1'b0;
+        mul2_start = 1'b0;
+
+        case (state_reg)
+            IDLE: if (Start) state_next = PRE_CALC;
+            PRE_CALC: begin
+                // Extract sign and absolute values
+                multiplier_sign = Multiplier[15];
+                multiplicand_sign = Multiplicand[15];
+                abs_multiplier = multiplier_sign ? (~Multiplier + 1) : Multiplier;
+                abs_multiplicand = multiplicand_sign ? (~Multiplicand + 1) : Multiplicand;
+                result_sign = multiplier_sign ^ multiplicand_sign;
+                // Use absolute values for splitting
+                xl_reg = abs_multiplier[7:0]; xh_reg = abs_multiplier[15:8];
+                yl_reg = abs_multiplicand[7:0]; yh_reg = abs_multiplicand[15:8];
+                sum_x = xh_reg + xl_reg; sum_y = yh_reg + yl_reg;
+                state_next = START_MUL_Z0;
             end
-            
-            PRECALCULATION: begin
-                State_next = START_Z0;
+            START_MUL_Z0: begin mul0_start = 1'b1; state_next = WAIT_MUL_Z0; end
+            WAIT_MUL_Z0: if (mul0_done) begin z0_reg = mul0_product; state_next = START_MUL_Z2; end
+            START_MUL_Z2: begin mul2_start = 1'b1; state_next = WAIT_MUL_Z2; end
+            WAIT_MUL_Z2: if (mul2_done) begin z2_reg = mul2_product; state_next = START_MUL_Z1; end
+            START_MUL_Z1: begin mul1_start = 1'b1; state_next = WAIT_MUL_Z1; end
+            WAIT_MUL_Z1: if (mul1_done) begin z1_intermediate_reg = mul1_product; state_next = FINAL_CALC; end
+            FINAL_CALC: begin
+                z1_reg = z1_intermediate_reg - z2_reg - z0_reg;
+                // Recombine unsigned partial products (corrected)
+                unsigned_product = (z2_reg << 16) + (z1_reg << 8) + z0_reg;
+                state_next = DONE;
             end
-            
-            START_Z0: begin
-                Start_0 = 1'b1;
-                State_next = WAIT_Z0;
-            end
-            
-            WAIT_Z0: begin
-                Start_0 = 1'b0;
-                if (Done_0) begin
-                    State_next = START_Z1;
-                end
-            end
-            
-            START_Z1: begin
-                Start_1 = 1'b1;
-                State_next = WAIT_Z1;
-            end
-            
-            WAIT_Z1: begin
-                Start_1 = 1'b0;
-                if (Done_1) begin
-                    State_next = START_Z2;
-                end
-            end
-            
-            START_Z2: begin
-                Start_2 = 1'b1;
-                State_next = WAIT_Z2;
-            end
-            
-            WAIT_Z2: begin
-                Start_2 = 1'b0;
-                if (Done_2) begin
-                    State_next = FINAL_CALCULATION;
-                end
-            end
-            
-            FINAL_CALCULATION: begin
-                State_next = DONE;
-            end
-            
-            ZERO_CASE: begin
-                State_next = DONE;
-            end
-            
-            DONE: begin
-                if (!Start) begin
-                    State_next = IDLE;
-                end
-            end
-            
-            default: State_next = IDLE;
+            DONE: if (!Start) state_next = IDLE;
+            default: state_next = IDLE;
         endcase
     end
 endmodule
