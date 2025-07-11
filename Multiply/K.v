@@ -7,16 +7,16 @@ module K (
     output [31:0] Product,
     output Done
 );
-    parameter IDLE = 4'h0;
-    parameter PRE_CALC = 4'h1;
-    parameter START_MUL_Z0 = 4'h2;
-    parameter WAIT_MUL_Z0 = 4'h3;
-    parameter START_MUL_Z2 = 4'h4;
-    parameter WAIT_MUL_Z2 = 4'h5;
-    parameter START_MUL_Z1 = 4'h6;
-    parameter WAIT_MUL_Z1 = 4'h7;
-    parameter FINAL_CALC = 4'h8;
-    parameter DONE = 4'h9;
+    localparam IDLE = 4'h0;
+    localparam PRE_CALC = 4'h1;
+    localparam START_MUL_Z0 = 4'h2;
+    localparam WAIT_MUL_Z0 = 4'h3;
+    localparam START_MUL_Z2 = 4'h4;
+    localparam WAIT_MUL_Z2 = 4'h5;
+    localparam START_MUL_Z1 = 4'h6;
+    localparam WAIT_MUL_Z1 = 4'h7;
+    localparam FINAL_CALC = 4'h8;
+    localparam DONE = 4'h9;
 
     reg [3:0] state_reg, state_next;
 
@@ -60,7 +60,6 @@ module K (
         end else begin
             state_reg <= state_next;
             if (state_next == DONE) begin
-                // Apply sign at the end
                 if (result_sign)
                     product_reg <= ~unsigned_product + 1;
                 else
@@ -83,13 +82,11 @@ module K (
         case (state_reg)
             IDLE: if (Start) state_next = PRE_CALC;
             PRE_CALC: begin
-                // Extract sign and absolute values
                 multiplier_sign = Multiplier[15];
                 multiplicand_sign = Multiplicand[15];
                 abs_multiplier = multiplier_sign ? (~Multiplier + 1) : Multiplier;
                 abs_multiplicand = multiplicand_sign ? (~Multiplicand + 1) : Multiplicand;
                 result_sign = multiplier_sign ^ multiplicand_sign;
-                // Use absolute values for splitting
                 xl_reg = abs_multiplier[7:0]; xh_reg = abs_multiplier[15:8];
                 yl_reg = abs_multiplicand[7:0]; yh_reg = abs_multiplicand[15:8];
                 sum_x = xh_reg + xl_reg; sum_y = yh_reg + yl_reg;
@@ -103,7 +100,6 @@ module K (
             WAIT_MUL_Z1: if (mul1_done) begin z1_intermediate_reg = mul1_product; state_next = FINAL_CALC; end
             FINAL_CALC: begin
                 z1_reg = z1_intermediate_reg - z2_reg - z0_reg;
-                // Recombine unsigned partial products (corrected)
                 unsigned_product = (z2_reg << 16) + (z1_reg << 8) + z0_reg;
                 state_next = DONE;
             end

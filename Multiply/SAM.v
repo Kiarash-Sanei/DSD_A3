@@ -9,84 +9,108 @@ module SAM (
 );
     localparam IDLE = 2'b00, WORK = 2'b01, DONE = 2'b10;
 
-    reg [1:0] state_reg, state_next;
-    reg [3:0] count_reg, count_next;
-    reg [15:0] product_reg, product_next;
-    reg [15:0] multiplicand_reg, multiplicand_next;
-    reg [15:0] multiplier_reg, multiplier_next;
-    reg done_reg, done_next;
+    wire [1:0] State_Q;
+    reg  [1:0] State_D;
+    wire [3:0] Count_Q;
+    reg  [3:0] Count_D;
+    wire [15:0] Product_Q;
+    reg  [15:0] Product_D;
+    wire [15:0] Multiplicand_Q;
+    reg  [15:0] Multiplicand_D;
+    wire [15:0] Multiplier_Q;
+    reg  [15:0] Multiplier_D;
+    wire Done_Q;
+    reg  Done_D;
 
-    always @(posedge Clock or posedge Reset) begin
-        if (Reset) begin
-            state_reg <= IDLE;
-            count_reg <= 4'b0;
-            product_reg <= 16'b0;
-            multiplicand_reg <= 16'b0;
-            multiplier_reg <= 16'b0;
-            done_reg <= 1'b0;
-        end else begin
-            state_reg <= state_next;
-            count_reg <= count_next;
-            product_reg <= product_next;
-            multiplicand_reg <= multiplicand_next;
-            multiplier_reg <= multiplier_next;
-            done_reg <= done_next;
-        end
-    end
+    DFF #(.N(2)) state_dff(
+        .Clock(Clock),
+        .Reset(Reset),
+        .Enable(1'b1),
+        .D(State_D),
+        .Q(State_Q)
+    );
+    DFF #(.N(4)) count_dff(
+        .Clock(Clock),
+        .Reset(Reset),
+        .Enable(1'b1),
+        .D(Count_D),
+        .Q(Count_Q)
+    );
+    DFF #(.N(16)) product_dff(
+        .Clock(Clock),
+        .Reset(Reset),
+        .Enable(1'b1),
+        .D(Product_D),
+        .Q(Product_Q)
+    );
+    DFF #(.N(16)) multiplicand_dff(
+        .Clock(Clock),
+        .Reset(Reset),
+        .Enable(1'b1),
+        .D(Multiplicand_D),
+        .Q(Multiplicand_Q)
+    );
+    DFF #(.N(16)) multiplier_dff(
+        .Clock(Clock),
+        .Reset(Reset),
+        .Enable(1'b1),
+        .D(Multiplier_D),
+        .Q(Multiplier_Q)
+    );
+    DFF #(.N(1)) done_dff(
+        .Clock(Clock),
+        .Reset(Reset),
+        .Enable(1'b1),
+        .D(Done_D),
+        .Q(Done_Q)
+    );
 
     always @(*) begin
-        state_next = state_reg;
-        count_next = count_reg;
-        product_next = product_reg;
-        multiplicand_next = multiplicand_reg;
-        multiplier_next = multiplier_reg;
-        done_next = done_reg;
-
-        case (state_reg)
+        case (State_Q)
             IDLE: begin
-                done_next = 1'b0;
+                Done_D = 1'b0;
                 if (Start) begin
-                    product_next = 16'd0;
-                    count_next = 4'd0;
-                    multiplicand_next = {8'b0, Multiplicand};
-                    multiplier_next = {8'b0, Multiplier};
-                    state_next = WORK;
+                    Product_D = 16'd0;
+                    Count_D = 4'd0;
+                    Multiplicand_D = {8'b0, Multiplicand};
+                    Multiplier_D = {8'b0, Multiplier};
+                    State_D = WORK;
                 end
             end
 
             WORK: begin
-                done_next = 1'b0;
-                if (count_reg < 4'd8) begin
-                    if (multiplier_reg[0]) begin
-                        product_next = product_reg + multiplicand_reg;
+                Done_D = 1'b0;
+                if (Count_Q < 4'd8) begin
+                    if (Multiplier_Q[0]) begin
+                        Product_D = Product_Q + Multiplicand_Q;
                     end else begin
-                        product_next = product_reg;
+                        Product_D = Product_Q;
                     end
-                    multiplicand_next = multiplicand_reg << 1;
-                    multiplier_next = multiplier_reg >> 1;
-                    count_next = count_reg + 1;
+                    Multiplicand_D = Multiplicand_Q << 1;
+                    Multiplier_D = Multiplier_Q >> 1;
+                    Count_D = Count_Q + 1;
                 end else begin
-                    state_next = DONE;
-                    done_next = 1'b1;
+                    State_D = DONE;
+                    Done_D = 1'b1;
                 end
             end
 
             DONE: begin
-                done_next = 1'b1;
+                Done_D = 1'b1;
                 if (!Start) begin
-                    state_next = IDLE;
+                    State_D = IDLE;
                 end
             end
 
             default: begin
-                state_next = IDLE;
-                done_next = 1'b0;
+                State_D = IDLE;
+                Done_D = 1'b0;
             end
         endcase
     end
 
     always @(*) begin
-        Product = product_reg;
-        Done = done_reg;
+        Product = Product_Q;
+        Done = Done_Q;
     end
 endmodule
