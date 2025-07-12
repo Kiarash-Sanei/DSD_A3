@@ -1,105 +1,50 @@
-#!/usr/bin/env bash
-# run.sh
+#!/bin/bash
 
-read -rp "Which bus is being tested? [M/T/E/A] " choice
-read -rp "How many bits are being used? [4/8/16/32/64/128/E/A] " bit
-read -rp "Which mode is being used? [M/T/X/E/A] " modename
+# Make all shell scripts executable
+echo "Making all shell scripts executable..."
+find . -type f -name "*.sh" -exec chmod +x {} \;
 
-case "$choice" in
-  M) name="MUX" ;;
-  T) name="Tristate.Buffer" ;;
-  E) echo "Simulation stopped!"; exit 1 ;;
-  A) name="A" ;;
-  *) echo "Invalid choice!"; exit 1 ;;
-esac
+# Find and run all shell scripts (excluding this script itself)
+echo "Running all shell scripts..."
+failed_scripts=()
 
-case "$bit" in
-  4|8|16|32|64|128) ;;
-  E) echo "Simulation stopped!"; exit 1 ;;
-  A) ;;
-  *) echo "Invalid bit!"; exit 1 ;;
-esac
+for script in $(find . -type f -name "*.sh" | grep -v "^\./run\.sh$" | sort); do
+    echo "=========================================="
+    echo "Running: $script"
+    echo "=========================================="
+    
+    # Get the directory of the script
+    script_dir=$(dirname "$script")
+    script_name=$(basename "$script")
+    
+    # Change to the script's directory and run it
+    cd "$script_dir"
+    if "./$script_name"; then
+        echo "✅ $script completed successfully"
+    else
+        echo "❌ $script failed with exit code $?"
+        failed_scripts+=("$script")
+    fi
+    cd - > /dev/null  # Return to original directory
+    echo ""
+done
 
-case "$modename" in
-  M) mode="Min";;
-  T) mode="Typical";;
-  X) mode="Max";;
-  E) echo "Simulation stopped!"; exit 1 ;;
-  A) ;;
-  *) echo "Invalid mode!"; exit 1 ;;
-esac
+# Clean up generated text files (only in current directory)
+echo "Cleaning up generated text files..."
+rm -f *.txt
 
-run_sim() {
-  local n="$1"
-  local b="$2"
-  local m="$3"
+# Summary
+echo "=========================================="
+echo "SUMMARY"
+echo "=========================================="
 
-  if ! iverilog -o out "${n}/${n}.${m}.v" "Testbench/${b}.v" &>/dev/null; then
-    echo "Compilation failed for ${n} @ ${b}th bit in ${m}!"
-    exit 1
-  fi
-  vvp out > "${n}/${m}/${b}.txt"
-  echo "Simulation complete. Output in ${n}/${folder}/${b}.txt."
-  rm -f out
-}
-
-all_names=( "MUX" "Tristate.Buffer" )
-all_bits=( 4 8 16 32 64 128 )
-all_modes=( "Min" "Typical" "Max" )
-
-if [[ $name != A && $bit != A && $modename != A ]]; then
-  # One bus, one width, one mode
-  run_sim "$name" "$bit" "$mode"
-
-elif [[ $name == A && $bit != A  && $modename != A ]]; then
-  # All buses, one width, one mode
-  for n in "${all_names[@]}"; do
-    run_sim "$n" "$bit" "$mode"
-  done
-
-elif [[ $name != A && $bit == A && $modename != A ]]; then
-  # One bus, all widths, one mode
-  for b in "${all_bits[@]}"; do
-    run_sim "$name" "$b" "$mode"
-  done
-
-elif [[ $name == A && $bit == A && $modename != A ]]; then
-  # All buses, all widths, one mode
-  for n in "${all_names[@]}"; do
-    for b in "${all_bits[@]}"; do
-      run_sim "$n" "$b" "$mode"
-    done
-  done
-
-elif [[ $name != A && $bit != A && $modename == A ]]; then
-  # One bus, one width, all mode
-  for m in "${all_modes[@]}"; do
-    run_sim "$name" "$bit" "$m"
-  done
-
-elif [[ $name == A && $bit != A  && $modename == A ]]; then
-  # All buses, one width, all mode
-  for m in "${all_modes[@]}"; do
-    for n in "${all_names[@]}"; do
-      run_sim "$n" "$bit" "$m"
-    done
-  done
-
-elif [[ $name != A && $bit == A && $modename == A ]]; then
-  # One bus, all widths, all mode
-  for m in "${all_modes[@]}"; do
-    for b in "${all_bits[@]}"; do
-      run_sim "$name" "$b" "$m"
-    done
-  done
-
+if [ ${#failed_scripts[@]} -eq 0 ]; then
+    echo "✅ All scripts completed successfully!"
+    exit 0
 else
-  # All buses, all widths, all mode
-  for m in "${all_modes[@]}"; do
-    for n in "${all_names[@]}"; do
-      for b in "${all_bits[@]}"; do
-        run_sim "$n" "$b" "$m"
-      done
+    echo "❌ The following scripts failed:"
+    for script in "${failed_scripts[@]}"; do
+        echo "  - $script"
     done
-  done
+    exit 1
 fi

@@ -73,11 +73,11 @@ module ALU (
 
     always @(*) begin
         case (ALUOP)
-            2'b00: Result = {16'b0, add_sum}; // ADD
-            2'b01: Result = {16'b0, sub_sum}; // SUB
-            2'b10: Result = mul_product;      // MUL
-            2'b11: Result = {16'b0, div_quotient}; // DIV (remainder ignored)
-            default: Result = 32'b0;
+            2'b00: Result = add_sum; // ADD
+            2'b01: Result = sub_sum; // SUB
+            2'b10: Result = mul_product[15:0];      // MUL
+            2'b11: Result = div_quotient; // DIV (remainder ignored)
+            default: Result = 16'b0;
         endcase
     end
 endmodule 
