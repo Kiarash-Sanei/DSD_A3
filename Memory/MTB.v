@@ -32,7 +32,6 @@ module MTB;
         Reset = 1; #20;
         Reset = 0; #10;
 
-        // Check reset
         for (i = 0; i < 4; i = i + 1) begin
             Read_Address = i;
             #1;
@@ -42,7 +41,6 @@ module MTB;
             end
         end
 
-        // Write to memory
         for (i = 0; i < 4; i = i + 1) begin
             Write_Address = i;
             Write_Data = 16'hBEEF + i;
@@ -52,7 +50,6 @@ module MTB;
             #10;
         end
 
-        // Read and check memory
         for (i = 0; i < 4; i = i + 1) begin
             Read_Address = i;
             #1;
