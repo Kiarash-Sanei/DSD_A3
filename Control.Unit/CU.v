@@ -56,7 +56,6 @@ module CU (
         is_rtype = (opcode <= 3'b011);
         is_mtype = (opcode >= 3'b100);
         sign_ext_addr = {{7{address[8]}}, address};
-        $display("DECODE: IR=%b, opcode=%b, rd=%d, rs1=%d, rs2=%d", IR, opcode, rd, rs1, rs2);
     end
 
     // Combinational control logic
@@ -100,7 +99,6 @@ module CU (
                     ALU_B = RF_Read_Data2;
                     ALUOP = opcode[1:0];
                     ALU_Start = 1;
-                    $display("EXEC: opcode=%b, rs1=%d, rs2=%d, A=%d, B=%d, ALUOP=%b", opcode, rs1, rs2, RF_Read_Data1, RF_Read_Data2, ALUOP);
                     if (ALU_Done) begin
                         load_alu_result = 1;
                         next_state = WB;
@@ -128,7 +126,6 @@ module CU (
                     load_mem_data = 1;
                     next_state = WB;
                 end else if (opcode == 3'b101) begin // STORE
-                    $display("STORE: base=%d, offset=%d, addr=%d", base_val, offset_val, base_val + offset_val);
                     Mem_Address = base_val + offset_val;
                     Mem_Write_Data = RF_Read_Data2;
                     Mem_Write_Enable = 1;
@@ -141,7 +138,6 @@ module CU (
                     RF_Write_Enable = 1;
                     RF_Write_Address = rd;
                     RF_Write_Data = alu_result_buf;
-                    $display("WB: Writing %d to R%d", alu_result_buf, rd);
                 end else if (opcode == 3'b100) begin // LOAD
                     RF_Write_Enable = 1;
                     RF_Write_Address = rd;
