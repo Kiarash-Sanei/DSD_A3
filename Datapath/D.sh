@@ -13,7 +13,6 @@ iverilog -o out \
     ../Summation/SM.v \
     ../Multiply/K.v \
     ../Multiply/SAM.v \
-    ../Multiply/DFF.v \
     ../Division/RD.v \
     D.v \
     DTB.v

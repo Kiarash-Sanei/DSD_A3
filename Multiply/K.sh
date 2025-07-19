@@ -1,6 +1,6 @@
 #!/bin/bash
 
-iverilog -o out SAM.v KTB.v DFF.v K.v 
+iverilog -o out SAM.v KTB.v K.v 
 
 if vvp out > "K.txt"; then
     rm out

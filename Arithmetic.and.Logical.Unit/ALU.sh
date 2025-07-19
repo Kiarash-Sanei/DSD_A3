@@ -1,6 +1,6 @@
 #!/bin/bash
 
-iverilog -o out ../Summation/CSA.v ../Summation/A.v ../Summation/FA.v ../Summation/HF.v ../Summation/M.v ../Summation/SM.v ../Multiply/K.v ../Multiply/SAM.v ../Multiply/DFF.v ../Division/RD.v ALU.v ALUTB.v
+iverilog -o out ../Summation/CSA.v ../Summation/A.v ../Summation/FA.v ../Summation/HF.v ../Summation/M.v ../Summation/SM.v ../Multiply/K.v ../Multiply/SAM.v ../Division/RD.v ALU.v ALUTB.v
 
 if vvp out > "ALU.txt"; then
     rm out

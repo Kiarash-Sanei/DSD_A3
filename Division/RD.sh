@@ -1,6 +1,6 @@
 #!/bin/bash
 
-iverilog -o out RD.v RDTB.v ../Multiply/DFF.v
+iverilog -o out RD.v RDTB.v 
 
 if vvp out > "RD.txt"; then
     rm out

@@ -34,83 +34,119 @@ module RD(
     
     localparam IDLE = 2'b00, WORK = 2'b01, DONE = 2'b10;
 
-    DFF #(.N(5)) count_dff(
-        .Clock(Clock), 
-        .Reset(Reset), 
-        .Enable(1'b1), 
-        .D(Count_D), 
-        .Q(Count_Q)
-    );
-    DFF #(.N(16)) quotient_dff(
-        .Clock(Clock), 
-        .Reset(Reset), 
-        .Enable(1'b1), 
-        .D(Quotient_D), 
-        .Q(Quotient_Q)
-    );
-    DFF #(.N(17)) remainder_dff(
-        .Clock(Clock),
-        .Reset(Reset),
-        .Enable(1'b1),
-        .D(Remainder_D),
-        .Q(Remainder_Q)
-    );
-    DFF #(.N(16)) divisor_dff(
-        .Clock(Clock),
-        .Reset(Reset),
-        .Enable(1'b1),
-        .D(Divisor_D),
-        .Q(Divisor_Q)
-    );
-    DFF #(.N(16)) dividend_dff(
-        .Clock(Clock),
-        .Reset(Reset),
-        .Enable(1'b1),
-        .D(Dividend_D),
-        .Q(Dividend_Q)
-    );
-    DFF #(.N(2)) state_dff(
-        .Clock(Clock), 
-        .Reset(Reset), 
-        .Enable(1'b1), 
-        .D(State_D), 
-        .Q(State_Q)
-    );
-    DFF #(.N(1)) done_dff(
-        .Clock(Clock), 
-        .Reset(Reset), 
-        .Enable(1'b1), 
-        .D(Done_D), 
-        .Q(Done_Q)
-    );
-    DFF #(.N(1)) sign_quotient_dff(
-        .Clock(Clock), 
-        .Reset(Reset), 
-        .Enable(1'b1), 
-        .D(Sign_Quotient_D), 
-        .Q(Sign_Quotient_Q)
-    );
-    DFF #(.N(1)) sign_remainder_dff(
-        .Clock(Clock), 
-        .Reset(Reset), 
-        .Enable(1'b1), 
-        .D(Sign_Remainder_D), 
-        .Q(Sign_Remainder_Q)
-    );
-    DFF #(.N(16)) abs_dividend_dff(
-        .Clock(Clock),
-        .Reset(Reset),
-        .Enable(1'b1),
-        .D(Abs_Dividend_D),
-        .Q(Abs_Dividend_Q)
-    );
-    DFF #(.N(16)) abs_divisor_dff(
-        .Clock(Clock),
-        .Reset(Reset),
-        .Enable(1'b1),
-        .D(Abs_Divisor_D),
-        .Q(Abs_Divisor_Q)
-    );
+    // DFF implementations as always blocks
+    reg [4:0] Count_Q_reg;
+    reg [15:0] Quotient_Q_reg;
+    reg [16:0] Remainder_Q_reg;
+    reg [15:0] Divisor_Q_reg;
+    reg [15:0] Dividend_Q_reg;
+    reg [1:0] State_Q_reg;
+    reg Done_Q_reg;
+    reg Sign_Quotient_Q_reg;
+    reg Sign_Remainder_Q_reg;
+    reg [15:0] Abs_Dividend_Q_reg;
+    reg [15:0] Abs_Divisor_Q_reg;
+
+    always @(posedge Clock or posedge Reset) begin
+        if (Reset) begin
+            Count_Q_reg <= 5'd0;
+        end else begin
+            Count_Q_reg <= Count_D;
+        end
+    end
+
+    always @(posedge Clock or posedge Reset) begin
+        if (Reset) begin
+            Quotient_Q_reg <= 16'd0;
+        end else begin
+            Quotient_Q_reg <= Quotient_D;
+        end
+    end
+
+    always @(posedge Clock or posedge Reset) begin
+        if (Reset) begin
+            Remainder_Q_reg <= 17'd0;
+        end else begin
+            Remainder_Q_reg <= Remainder_D;
+        end
+    end
+
+    always @(posedge Clock or posedge Reset) begin
+        if (Reset) begin
+            Divisor_Q_reg <= 16'd0;
+        end else begin
+            Divisor_Q_reg <= Divisor_D;
+        end
+    end
+
+    always @(posedge Clock or posedge Reset) begin
+        if (Reset) begin
+            Dividend_Q_reg <= 16'd0;
+        end else begin
+            Dividend_Q_reg <= Dividend_D;
+        end
+    end
+
+    always @(posedge Clock or posedge Reset) begin
+        if (Reset) begin
+            State_Q_reg <= 2'b00;
+        end else begin
+            State_Q_reg <= State_D;
+        end
+    end
+
+    always @(posedge Clock or posedge Reset) begin
+        if (Reset) begin
+            Done_Q_reg <= 1'b0;
+        end else begin
+            Done_Q_reg <= Done_D;
+        end
+    end
+
+    always @(posedge Clock or posedge Reset) begin
+        if (Reset) begin
+            Sign_Quotient_Q_reg <= 1'b0;
+        end else begin
+            Sign_Quotient_Q_reg <= Sign_Quotient_D;
+        end
+    end
+
+    always @(posedge Clock or posedge Reset) begin
+        if (Reset) begin
+            Sign_Remainder_Q_reg <= 1'b0;
+        end else begin
+            Sign_Remainder_Q_reg <= Sign_Remainder_D;
+        end
+    end
+
+    always @(posedge Clock or posedge Reset) begin
+        if (Reset) begin
+            Abs_Dividend_Q_reg <= 16'd0;
+        end else begin
+            Abs_Dividend_Q_reg <= Abs_Dividend_D;
+        end
+    end
+
+    always @(posedge Clock or posedge Reset) begin
+        if (Reset) begin
+            Abs_Divisor_Q_reg <= 16'd0;
+        end else begin
+            Abs_Divisor_Q_reg <= Abs_Divisor_D;
+        end
+    end
+
+    // Assign wire outputs from registers
+    assign Count_Q = Count_Q_reg;
+    assign Quotient_Q = Quotient_Q_reg;
+    assign Remainder_Q = Remainder_Q_reg;
+    assign Divisor_Q = Divisor_Q_reg;
+    assign Dividend_Q = Dividend_Q_reg;
+    assign State_Q = State_Q_reg;
+    assign Done_Q = Done_Q_reg;
+    assign Sign_Quotient_Q = Sign_Quotient_Q_reg;
+    assign Sign_Remainder_Q = Sign_Remainder_Q_reg;
+    assign Abs_Dividend_Q = Abs_Dividend_Q_reg;
+    assign Abs_Divisor_Q = Abs_Divisor_Q_reg;
 
     function [15:0] abs_value;
         input [15:0] value;
