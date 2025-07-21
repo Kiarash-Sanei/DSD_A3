@@ -1,0 +1,6 @@
+Info (10281): Verilog HDL Declaration information at M.v(2): object "O" differs only in case from object "o" in the same scope
+Info (10281): Verilog HDL Declaration information at HF.v(1): object "A" differs only in case from object "a" in the same scope
+Info (10281): Verilog HDL Declaration information at SAM.v(9): object "Done" differs only in case from object "DONE" in the same scope
+Info (10281): Verilog HDL Declaration information at K.v(9): object "Done" differs only in case from object "DONE" in the same scope
+Warning (10268): Verilog HDL information at M.v(14): always construct contains both blocking and non-blocking assignments
+Info (10281): Verilog HDL Declaration information at RD.v(10): object "Done" differs only in case from object "DONE" in the same scope

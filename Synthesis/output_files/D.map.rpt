@@ -1,0 +1,1581 @@
+Analysis & Synthesis report for D
+Sun Jul 20 06:46:33 2025
+Quartus II 64-Bit Version 13.1.0 Build 162 10/23/2013 SJ Web Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Synthesis Summary
+  3. Analysis & Synthesis Settings
+  4. Parallel Compilation
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Resource Usage Summary
+  7. Analysis & Synthesis Resource Utilization by Entity
+  8. State Machine - |D|ALU:alu|state
+  9. State Machine - |D|ALU:alu|RD:divider|State_Q_reg
+ 10. State Machine - |D|ALU:alu|K:multiplier|state_reg
+ 11. State Machine - |D|ALU:alu|K:multiplier|SAM:mul1_inst|State_Q_reg
+ 12. State Machine - |D|ALU:alu|K:multiplier|SAM:mul2_inst|State_Q_reg
+ 13. State Machine - |D|ALU:alu|K:multiplier|SAM:mul0_inst|State_Q_reg
+ 14. State Machine - |D|CU:control_unit|state
+ 15. Registers Removed During Synthesis
+ 16. Removed Registers Triggering Further Register Optimizations
+ 17. General Register Statistics
+ 18. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 19. Parameter Settings for User Entity Instance: ALU:alu|CSA_16bit:adder
+ 20. Parameter Settings for User Entity Instance: ALU:alu|CSA_16bit:subtractor
+ 21. Port Connectivity Checks: "ALU:alu|RD:divider"
+ 22. Port Connectivity Checks: "ALU:alu|K:multiplier"
+ 23. Port Connectivity Checks: "ALU:alu|CSA_16bit:subtractor"
+ 24. Port Connectivity Checks: "ALU:alu|CSA_16bit:adder|A:A_3_1"
+ 25. Port Connectivity Checks: "ALU:alu|CSA_16bit:adder|A:A_3_0"
+ 26. Port Connectivity Checks: "ALU:alu|CSA_16bit:adder|A:A_2_1"
+ 27. Port Connectivity Checks: "ALU:alu|CSA_16bit:adder|A:A_2_0"
+ 28. Port Connectivity Checks: "ALU:alu|CSA_16bit:adder|A:A_1_1"
+ 29. Port Connectivity Checks: "ALU:alu|CSA_16bit:adder|A:A_1_0"
+ 30. Port Connectivity Checks: "ALU:alu|CSA_16bit:adder"
+ 31. Elapsed Time Per Partition
+ 32. Analysis & Synthesis Messages
+ 33. Analysis & Synthesis Suppressed Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2013 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++---------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                    ;
++------------------------------------+--------------------------------------------+
+; Analysis & Synthesis Status        ; Successful - Sun Jul 20 06:46:33 2025      ;
+; Quartus II 64-Bit Version          ; 13.1.0 Build 162 10/23/2013 SJ Web Edition ;
+; Revision Name                      ; D                                          ;
+; Top-level Entity Name              ; D                                          ;
+; Family                             ; Cyclone IV E                               ;
+; Total logic elements               ; 1                                          ;
+;     Total combinational functions  ; 1                                          ;
+;     Dedicated logic registers      ; 0                                          ;
+; Total registers                    ; 0                                          ;
+; Total pins                         ; 4                                          ;
+; Total virtual pins                 ; 0                                          ;
+; Total memory bits                  ; 0                                          ;
+; Embedded Multiplier 9-bit elements ; 0                                          ;
+; Total PLLs                         ; 0                                          ;
++------------------------------------+--------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Settings                                                                                        ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+; Option                                                                     ; Setting            ; Default Value      ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+; Device                                                                     ; EP4CE6E22A7        ;                    ;
+; Top-level entity name                                                      ; D                  ; D                  ;
+; Family name                                                                ; Cyclone IV E       ; Cyclone IV GX      ;
+; Use smart compilation                                                      ; Off                ; Off                ;
+; Enable parallel Assembler and TimeQuest Timing Analyzer during compilation ; On                 ; On                 ;
+; Enable compact report table                                                ; Off                ; Off                ;
+; Restructure Multiplexers                                                   ; Auto               ; Auto               ;
+; Create Debugging Nodes for IP Cores                                        ; Off                ; Off                ;
+; Preserve fewer node names                                                  ; On                 ; On                 ;
+; Disable OpenCore Plus hardware evaluation                                  ; Off                ; Off                ;
+; Verilog Version                                                            ; Verilog_2001       ; Verilog_2001       ;
+; VHDL Version                                                               ; VHDL_1993          ; VHDL_1993          ;
+; State Machine Processing                                                   ; Auto               ; Auto               ;
+; Safe State Machine                                                         ; Off                ; Off                ;
+; Extract Verilog State Machines                                             ; On                 ; On                 ;
+; Extract VHDL State Machines                                                ; On                 ; On                 ;
+; Ignore Verilog initial constructs                                          ; Off                ; Off                ;
+; Iteration limit for constant Verilog loops                                 ; 5000               ; 5000               ;
+; Iteration limit for non-constant Verilog loops                             ; 250                ; 250                ;
+; Add Pass-Through Logic to Inferred RAMs                                    ; On                 ; On                 ;
+; Infer RAMs from Raw Logic                                                  ; On                 ; On                 ;
+; Parallel Synthesis                                                         ; On                 ; On                 ;
+; DSP Block Balancing                                                        ; Auto               ; Auto               ;
+; NOT Gate Push-Back                                                         ; On                 ; On                 ;
+; Power-Up Don't Care                                                        ; On                 ; On                 ;
+; Remove Redundant Logic Cells                                               ; Off                ; Off                ;
+; Remove Duplicate Registers                                                 ; On                 ; On                 ;
+; Ignore CARRY Buffers                                                       ; Off                ; Off                ;
+; Ignore CASCADE Buffers                                                     ; Off                ; Off                ;
+; Ignore GLOBAL Buffers                                                      ; Off                ; Off                ;
+; Ignore ROW GLOBAL Buffers                                                  ; Off                ; Off                ;
+; Ignore LCELL Buffers                                                       ; Off                ; Off                ;
+; Ignore SOFT Buffers                                                        ; On                 ; On                 ;
+; Limit AHDL Integers to 32 Bits                                             ; Off                ; Off                ;
+; Optimization Technique                                                     ; Balanced           ; Balanced           ;
+; Carry Chain Length                                                         ; 70                 ; 70                 ;
+; Auto Carry Chains                                                          ; On                 ; On                 ;
+; Auto Open-Drain Pins                                                       ; On                 ; On                 ;
+; Perform WYSIWYG Primitive Resynthesis                                      ; Off                ; Off                ;
+; Auto ROM Replacement                                                       ; On                 ; On                 ;
+; Auto RAM Replacement                                                       ; On                 ; On                 ;
+; Auto DSP Block Replacement                                                 ; On                 ; On                 ;
+; Auto Shift Register Replacement                                            ; Auto               ; Auto               ;
+; Allow Shift Register Merging across Hierarchies                            ; Auto               ; Auto               ;
+; Auto Clock Enable Replacement                                              ; On                 ; On                 ;
+; Strict RAM Replacement                                                     ; Off                ; Off                ;
+; Allow Synchronous Control Signals                                          ; On                 ; On                 ;
+; Force Use of Synchronous Clear Signals                                     ; Off                ; Off                ;
+; Auto RAM Block Balancing                                                   ; On                 ; On                 ;
+; Auto RAM to Logic Cell Conversion                                          ; Off                ; Off                ;
+; Auto Resource Sharing                                                      ; Off                ; Off                ;
+; Allow Any RAM Size For Recognition                                         ; Off                ; Off                ;
+; Allow Any ROM Size For Recognition                                         ; Off                ; Off                ;
+; Allow Any Shift Register Size For Recognition                              ; Off                ; Off                ;
+; Use LogicLock Constraints during Resource Balancing                        ; On                 ; On                 ;
+; Ignore translate_off and synthesis_off directives                          ; Off                ; Off                ;
+; Timing-Driven Synthesis                                                    ; On                 ; On                 ;
+; Report Parameter Settings                                                  ; On                 ; On                 ;
+; Report Source Assignments                                                  ; On                 ; On                 ;
+; Report Connectivity Checks                                                 ; On                 ; On                 ;
+; Ignore Maximum Fan-Out Assignments                                         ; Off                ; Off                ;
+; Synchronization Register Chain Length                                      ; 2                  ; 2                  ;
+; PowerPlay Power Optimization                                               ; Normal compilation ; Normal compilation ;
+; HDL message level                                                          ; Level2             ; Level2             ;
+; Suppress Register Optimization Related Messages                            ; Off                ; Off                ;
+; Number of Removed Registers Reported in Synthesis Report                   ; 5000               ; 5000               ;
+; Number of Swept Nodes Reported in Synthesis Report                         ; 5000               ; 5000               ;
+; Number of Inverted Registers Reported in Synthesis Report                  ; 100                ; 100                ;
+; Clock MUX Protection                                                       ; On                 ; On                 ;
+; Auto Gated Clock Conversion                                                ; Off                ; Off                ;
+; Block Design Naming                                                        ; Auto               ; Auto               ;
+; SDC constraint protection                                                  ; Off                ; Off                ;
+; Synthesis Effort                                                           ; Auto               ; Auto               ;
+; Shift Register Replacement - Allow Asynchronous Clear Signal               ; On                 ; On                 ;
+; Pre-Mapping Resynthesis Optimization                                       ; Off                ; Off                ;
+; Analysis & Synthesis Message Level                                         ; Medium             ; Medium             ;
+; Disable Register Merging Across Hierarchies                                ; Auto               ; Auto               ;
+; Resource Aware Inference For Block RAM                                     ; On                 ; On                 ;
+; Synthesis Seed                                                             ; 1                  ; 1                  ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+
+
+Parallel compilation was disabled, but you have multiple processors available. Enable parallel compilation to reduce compilation time.
++-------------------------------------+
+; Parallel Compilation                ;
++----------------------------+--------+
+; Processors                 ; Number ;
++----------------------------+--------+
+; Number detected on machine ; 22     ;
+; Maximum allowed            ; 1      ;
++----------------------------+--------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                       ;
++--------------------------------------------------+-----------------+------------------------+----------------------------------------------------------------------+---------+
+; File Name with User-Entered Path                 ; Used in Netlist ; File Type              ; File Name with Absolute Path                                         ; Library ;
++--------------------------------------------------+-----------------+------------------------+----------------------------------------------------------------------+---------+
+; ../DSD_A3-main/Summation/SM.v                    ; yes             ; User Verilog HDL File  ; C:/Users/oroji/Desktop/DSD_A3-main/Summation/SM.v                    ;         ;
+; ../DSD_A3-main/Summation/M.v                     ; yes             ; User Verilog HDL File  ; C:/Users/oroji/Desktop/DSD_A3-main/Summation/M.v                     ;         ;
+; ../DSD_A3-main/Summation/HF.v                    ; yes             ; User Verilog HDL File  ; C:/Users/oroji/Desktop/DSD_A3-main/Summation/HF.v                    ;         ;
+; ../DSD_A3-main/Summation/FA.v                    ; yes             ; User Verilog HDL File  ; C:/Users/oroji/Desktop/DSD_A3-main/Summation/FA.v                    ;         ;
+; ../DSD_A3-main/Summation/CSA.v                   ; yes             ; User Verilog HDL File  ; C:/Users/oroji/Desktop/DSD_A3-main/Summation/CSA.v                   ;         ;
+; ../DSD_A3-main/Summation/A.v                     ; yes             ; User Verilog HDL File  ; C:/Users/oroji/Desktop/DSD_A3-main/Summation/A.v                     ;         ;
+; ../DSD_A3-main/Register/RF.v                     ; yes             ; User Verilog HDL File  ; C:/Users/oroji/Desktop/DSD_A3-main/Register/RF.v                     ;         ;
+; ../DSD_A3-main/Multiply/SAM.v                    ; yes             ; User Verilog HDL File  ; C:/Users/oroji/Desktop/DSD_A3-main/Multiply/SAM.v                    ;         ;
+; ../DSD_A3-main/Multiply/K.v                      ; yes             ; User Verilog HDL File  ; C:/Users/oroji/Desktop/DSD_A3-main/Multiply/K.v                      ;         ;
+; ../DSD_A3-main/Memory/M.v                        ; yes             ; User Verilog HDL File  ; C:/Users/oroji/Desktop/DSD_A3-main/Memory/M.v                        ;         ;
+; ../DSD_A3-main/Division/RD.v                     ; yes             ; User Verilog HDL File  ; C:/Users/oroji/Desktop/DSD_A3-main/Division/RD.v                     ;         ;
+; ../DSD_A3-main/Datapath/D.v                      ; yes             ; User Verilog HDL File  ; C:/Users/oroji/Desktop/DSD_A3-main/Datapath/D.v                      ;         ;
+; ../DSD_A3-main/Control.Unit/CU.v                 ; yes             ; User Verilog HDL File  ; C:/Users/oroji/Desktop/DSD_A3-main/Control.Unit/CU.v                 ;         ;
+; ../DSD_A3-main/Arithmetic.and.Logical.Unit/ALU.v ; yes             ; User Verilog HDL File  ; C:/Users/oroji/Desktop/DSD_A3-main/Arithmetic.and.Logical.Unit/ALU.v ;         ;
++--------------------------------------------------+-----------------+------------------------+----------------------------------------------------------------------+---------+
+
+
++------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary          ;
++---------------------------------------------+--------+
+; Resource                                    ; Usage  ;
++---------------------------------------------+--------+
+; Estimated Total logic elements              ; 1      ;
+;                                             ;        ;
+; Total combinational functions               ; 1      ;
+; Logic element usage by number of LUT inputs ;        ;
+;     -- 4 input functions                    ; 0      ;
+;     -- 3 input functions                    ; 0      ;
+;     -- <=2 input functions                  ; 1      ;
+;                                             ;        ;
+; Logic elements by mode                      ;        ;
+;     -- normal mode                          ; 1      ;
+;     -- arithmetic mode                      ; 0      ;
+;                                             ;        ;
+; Total registers                             ; 0      ;
+;     -- Dedicated logic registers            ; 0      ;
+;     -- I/O registers                        ; 0      ;
+;                                             ;        ;
+; I/O pins                                    ; 4      ;
+; Embedded Multiplier 9-bit elements          ; 0      ;
+; Maximum fan-out node                        ; Done~0 ;
+; Maximum fan-out                             ; 1      ;
+; Total fan-out                               ; 7      ;
+; Average fan-out                             ; 0.78   ;
++---------------------------------------------+--------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                         ;
++----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------+--------------+
+; Compilation Hierarchy Node ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name ; Library Name ;
++----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------+--------------+
+; |D                         ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 4    ; 0            ; |D                  ; work         ;
++----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
+Encoding Type:  One-Hot
++-----------------------------------------------------------+
+; State Machine - |D|ALU:alu|state                          ;
++--------------+--------------+--------------+--------------+
+; Name         ; state.S_IDLE ; state.S_DONE ; state.S_WAIT ;
++--------------+--------------+--------------+--------------+
+; state.S_IDLE ; 0            ; 0            ; 0            ;
+; state.S_WAIT ; 1            ; 0            ; 1            ;
+; state.S_DONE ; 1            ; 1            ; 0            ;
++--------------+--------------+--------------+--------------+
+
+
+Encoding Type:  One-Hot
++-------------------------------------------------------------------------+
+; State Machine - |D|ALU:alu|RD:divider|State_Q_reg                       ;
++------------------+----------------+------------------+------------------+
+; Name             ; State_Q_reg.00 ; State_Q_reg.DONE ; State_Q_reg.WORK ;
++------------------+----------------+------------------+------------------+
+; State_Q_reg.00   ; 0              ; 0                ; 0                ;
+; State_Q_reg.WORK ; 1              ; 0                ; 1                ;
+; State_Q_reg.DONE ; 1              ; 1                ; 0                ;
++------------------+----------------+------------------+------------------+
+
+
+Encoding Type:  One-Hot
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |D|ALU:alu|K:multiplier|state_reg                                                                                                                                                                                                       ;
++------------------------+----------------+----------------------+-----------------------+------------------------+-----------------------+------------------------+-----------------------+------------------------+--------------------+----------------+
+; Name                   ; state_reg.DONE ; state_reg.FINAL_CALC ; state_reg.WAIT_MUL_Z1 ; state_reg.START_MUL_Z1 ; state_reg.WAIT_MUL_Z2 ; state_reg.START_MUL_Z2 ; state_reg.WAIT_MUL_Z0 ; state_reg.START_MUL_Z0 ; state_reg.PRE_CALC ; state_reg.IDLE ;
++------------------------+----------------+----------------------+-----------------------+------------------------+-----------------------+------------------------+-----------------------+------------------------+--------------------+----------------+
+; state_reg.IDLE         ; 0              ; 0                    ; 0                     ; 0                      ; 0                     ; 0                      ; 0                     ; 0                      ; 0                  ; 0              ;
+; state_reg.PRE_CALC     ; 0              ; 0                    ; 0                     ; 0                      ; 0                     ; 0                      ; 0                     ; 0                      ; 1                  ; 1              ;
+; state_reg.START_MUL_Z0 ; 0              ; 0                    ; 0                     ; 0                      ; 0                     ; 0                      ; 0                     ; 1                      ; 0                  ; 1              ;
+; state_reg.WAIT_MUL_Z0  ; 0              ; 0                    ; 0                     ; 0                      ; 0                     ; 0                      ; 1                     ; 0                      ; 0                  ; 1              ;
+; state_reg.START_MUL_Z2 ; 0              ; 0                    ; 0                     ; 0                      ; 0                     ; 1                      ; 0                     ; 0                      ; 0                  ; 1              ;
+; state_reg.WAIT_MUL_Z2  ; 0              ; 0                    ; 0                     ; 0                      ; 1                     ; 0                      ; 0                     ; 0                      ; 0                  ; 1              ;
+; state_reg.START_MUL_Z1 ; 0              ; 0                    ; 0                     ; 1                      ; 0                     ; 0                      ; 0                     ; 0                      ; 0                  ; 1              ;
+; state_reg.WAIT_MUL_Z1  ; 0              ; 0                    ; 1                     ; 0                      ; 0                     ; 0                      ; 0                     ; 0                      ; 0                  ; 1              ;
+; state_reg.FINAL_CALC   ; 0              ; 1                    ; 0                     ; 0                      ; 0                     ; 0                      ; 0                     ; 0                      ; 0                  ; 1              ;
+; state_reg.DONE         ; 1              ; 0                    ; 0                     ; 0                      ; 0                     ; 0                      ; 0                     ; 0                      ; 0                  ; 1              ;
++------------------------+----------------+----------------------+-----------------------+------------------------+-----------------------+------------------------+-----------------------+------------------------+--------------------+----------------+
+
+
+Encoding Type:  One-Hot
++-------------------------------------------------------------------------+
+; State Machine - |D|ALU:alu|K:multiplier|SAM:mul1_inst|State_Q_reg       ;
++------------------+----------------+------------------+------------------+
+; Name             ; State_Q_reg.00 ; State_Q_reg.DONE ; State_Q_reg.WORK ;
++------------------+----------------+------------------+------------------+
+; State_Q_reg.00   ; 0              ; 0                ; 0                ;
+; State_Q_reg.WORK ; 1              ; 0                ; 1                ;
+; State_Q_reg.DONE ; 1              ; 1                ; 0                ;
++------------------+----------------+------------------+------------------+
+
+
+Encoding Type:  One-Hot
++-------------------------------------------------------------------------+
+; State Machine - |D|ALU:alu|K:multiplier|SAM:mul2_inst|State_Q_reg       ;
++------------------+----------------+------------------+------------------+
+; Name             ; State_Q_reg.00 ; State_Q_reg.DONE ; State_Q_reg.WORK ;
++------------------+----------------+------------------+------------------+
+; State_Q_reg.00   ; 0              ; 0                ; 0                ;
+; State_Q_reg.WORK ; 1              ; 0                ; 1                ;
+; State_Q_reg.DONE ; 1              ; 1                ; 0                ;
++------------------+----------------+------------------+------------------+
+
+
+Encoding Type:  One-Hot
++-------------------------------------------------------------------------+
+; State Machine - |D|ALU:alu|K:multiplier|SAM:mul0_inst|State_Q_reg       ;
++------------------+----------------+------------------+------------------+
+; Name             ; State_Q_reg.00 ; State_Q_reg.DONE ; State_Q_reg.WORK ;
++------------------+----------------+------------------+------------------+
+; State_Q_reg.00   ; 0              ; 0                ; 0                ;
+; State_Q_reg.WORK ; 1              ; 0                ; 1                ;
+; State_Q_reg.DONE ; 1              ; 1                ; 0                ;
++------------------+----------------+------------------+------------------+
+
+
+Encoding Type:  One-Hot
++-------------------------------------------------------------------------------+
+; State Machine - |D|CU:control_unit|state                                      ;
++--------------+-----------+------------+--------------+-------------+----------+
+; Name         ; state.MEM ; state.EXEC ; state.DECODE ; state.FETCH ; state.WB ;
++--------------+-----------+------------+--------------+-------------+----------+
+; state.FETCH  ; 0         ; 0          ; 0            ; 0           ; 0        ;
+; state.DECODE ; 0         ; 0          ; 1            ; 1           ; 0        ;
+; state.EXEC   ; 0         ; 1          ; 0            ; 1           ; 0        ;
+; state.MEM    ; 1         ; 0          ; 0            ; 1           ; 0        ;
+; state.WB     ; 0         ; 0          ; 0            ; 1           ; 1        ;
++--------------+-----------+------------+--------------+-------------+----------+
+
+
++-----------------------------------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                                        ;
++--------------------------------------------------------------+--------------------------------------------+
+; Register name                                                ; Reason for Removal                         ;
++--------------------------------------------------------------+--------------------------------------------+
+; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplier_Q_reg[15]      ; Stuck at GND due to stuck port data_in     ;
+; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplier_Q_reg[15]      ; Stuck at GND due to stuck port data_in     ;
+; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplier_Q_reg[15]      ; Stuck at GND due to stuck port data_in     ;
+; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplier_Q_reg[14]      ; Stuck at GND due to stuck port data_in     ;
+; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplier_Q_reg[14]      ; Stuck at GND due to stuck port data_in     ;
+; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplier_Q_reg[14]      ; Stuck at GND due to stuck port data_in     ;
+; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplier_Q_reg[13]      ; Stuck at GND due to stuck port data_in     ;
+; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplier_Q_reg[13]      ; Stuck at GND due to stuck port data_in     ;
+; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplier_Q_reg[13]      ; Stuck at GND due to stuck port data_in     ;
+; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplier_Q_reg[12]      ; Stuck at GND due to stuck port data_in     ;
+; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplier_Q_reg[12]      ; Stuck at GND due to stuck port data_in     ;
+; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplier_Q_reg[12]      ; Stuck at GND due to stuck port data_in     ;
+; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplier_Q_reg[11]      ; Stuck at GND due to stuck port data_in     ;
+; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplier_Q_reg[11]      ; Stuck at GND due to stuck port data_in     ;
+; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplier_Q_reg[11]      ; Stuck at GND due to stuck port data_in     ;
+; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplier_Q_reg[10]      ; Stuck at GND due to stuck port data_in     ;
+; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplier_Q_reg[10]      ; Stuck at GND due to stuck port data_in     ;
+; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplier_Q_reg[10]      ; Stuck at GND due to stuck port data_in     ;
+; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplier_Q_reg[9]       ; Stuck at GND due to stuck port data_in     ;
+; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplier_Q_reg[9]       ; Stuck at GND due to stuck port data_in     ;
+; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplier_Q_reg[9]       ; Stuck at GND due to stuck port data_in     ;
+; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplier_Q_reg[8]       ; Stuck at GND due to stuck port data_in     ;
+; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplier_Q_reg[8]       ; Stuck at GND due to stuck port data_in     ;
+; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplier_Q_reg[8]       ; Stuck at GND due to stuck port data_in     ;
+; CU:control_unit|offset_val[8,9,11..15]                       ; Merged with CU:control_unit|offset_val[10] ;
+; ALU:alu|K:multiplier|state_reg~4                             ; Lost fanout                                ;
+; ALU:alu|K:multiplier|state_reg~5                             ; Lost fanout                                ;
+; ALU:alu|K:multiplier|state_reg~6                             ; Lost fanout                                ;
+; ALU:alu|K:multiplier|state_reg~7                             ; Lost fanout                                ;
+; CU:control_unit|state~4                                      ; Lost fanout                                ;
+; CU:control_unit|state~5                                      ; Lost fanout                                ;
+; CU:control_unit|IR[14,15]                                    ; Lost fanout                                ;
+; ALU:alu|K:multiplier|done_reg                                ; Lost fanout                                ;
+; ALU:alu|RD:divider|Done_Q_reg                                ; Lost fanout                                ;
+; CU:control_unit|IR[13]                                       ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul1_inst|Done_Q_reg                ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul2_inst|Done_Q_reg                ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul0_inst|Done_Q_reg                ; Lost fanout                                ;
+; ALU:alu|Done                                                 ; Lost fanout                                ;
+; CU:control_unit|PC[0]                                        ; Lost fanout                                ;
+; CU:control_unit|offset_val[1..7,10]                          ; Lost fanout                                ;
+; CU:control_unit|base_val[0..15]                              ; Lost fanout                                ;
+; CU:control_unit|offset_val[0]                                ; Lost fanout                                ;
+; CU:control_unit|PC[1..3]                                     ; Lost fanout                                ;
+; M:memory|mem[0][15]                                          ; Lost fanout                                ;
+; M:memory|mem[1][15]                                          ; Lost fanout                                ;
+; M:memory|mem[2][15]                                          ; Lost fanout                                ;
+; M:memory|mem[3][15]                                          ; Lost fanout                                ;
+; M:memory|mem[4][15]                                          ; Lost fanout                                ;
+; M:memory|mem[5][15]                                          ; Lost fanout                                ;
+; M:memory|mem[6][15]                                          ; Lost fanout                                ;
+; M:memory|mem[7][15]                                          ; Lost fanout                                ;
+; M:memory|mem[8][15]                                          ; Lost fanout                                ;
+; M:memory|mem[9][15]                                          ; Lost fanout                                ;
+; M:memory|mem[10][15]                                         ; Lost fanout                                ;
+; M:memory|mem[11][15]                                         ; Lost fanout                                ;
+; M:memory|mem[12][15]                                         ; Lost fanout                                ;
+; M:memory|mem[13][15]                                         ; Lost fanout                                ;
+; M:memory|mem[14][15]                                         ; Lost fanout                                ;
+; M:memory|mem[15][15]                                         ; Lost fanout                                ;
+; CU:control_unit|PC[4..15]                                    ; Lost fanout                                ;
+; M:memory|mem[0][14]                                          ; Lost fanout                                ;
+; M:memory|mem[1][14]                                          ; Lost fanout                                ;
+; M:memory|mem[2][14]                                          ; Lost fanout                                ;
+; M:memory|mem[3][14]                                          ; Lost fanout                                ;
+; M:memory|mem[4][14]                                          ; Lost fanout                                ;
+; M:memory|mem[5][14]                                          ; Lost fanout                                ;
+; M:memory|mem[6][14]                                          ; Lost fanout                                ;
+; M:memory|mem[7][14]                                          ; Lost fanout                                ;
+; M:memory|mem[8][14]                                          ; Lost fanout                                ;
+; M:memory|mem[9][14]                                          ; Lost fanout                                ;
+; M:memory|mem[10][14]                                         ; Lost fanout                                ;
+; M:memory|mem[11][14]                                         ; Lost fanout                                ;
+; M:memory|mem[12][14]                                         ; Lost fanout                                ;
+; M:memory|mem[13][14]                                         ; Lost fanout                                ;
+; M:memory|mem[14][14]                                         ; Lost fanout                                ;
+; M:memory|mem[15][14]                                         ; Lost fanout                                ;
+; ALU:alu|RD:divider|Count_Q_reg[4]                            ; Lost fanout                                ;
+; M:memory|mem[0][13]                                          ; Lost fanout                                ;
+; M:memory|mem[1][13]                                          ; Lost fanout                                ;
+; M:memory|mem[2][13]                                          ; Lost fanout                                ;
+; M:memory|mem[3][13]                                          ; Lost fanout                                ;
+; M:memory|mem[4][13]                                          ; Lost fanout                                ;
+; M:memory|mem[5][13]                                          ; Lost fanout                                ;
+; M:memory|mem[6][13]                                          ; Lost fanout                                ;
+; M:memory|mem[7][13]                                          ; Lost fanout                                ;
+; M:memory|mem[8][13]                                          ; Lost fanout                                ;
+; M:memory|mem[9][13]                                          ; Lost fanout                                ;
+; M:memory|mem[10][13]                                         ; Lost fanout                                ;
+; M:memory|mem[11][13]                                         ; Lost fanout                                ;
+; M:memory|mem[12][13]                                         ; Lost fanout                                ;
+; M:memory|mem[13][13]                                         ; Lost fanout                                ;
+; M:memory|mem[14][13]                                         ; Lost fanout                                ;
+; M:memory|mem[15][13]                                         ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul1_inst|Count_Q_reg[3]            ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul2_inst|Count_Q_reg[3]            ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul0_inst|Count_Q_reg[3]            ; Lost fanout                                ;
+; CU:control_unit|IR[1..10]                                    ; Lost fanout                                ;
+; RF:register_file|regfile[0][0]                               ; Lost fanout                                ;
+; RF:register_file|regfile[1][0]                               ; Lost fanout                                ;
+; RF:register_file|regfile[2][0]                               ; Lost fanout                                ;
+; RF:register_file|regfile[3][0]                               ; Lost fanout                                ;
+; RF:register_file|regfile[0][15]                              ; Lost fanout                                ;
+; RF:register_file|regfile[1][15]                              ; Lost fanout                                ;
+; RF:register_file|regfile[2][15]                              ; Lost fanout                                ;
+; RF:register_file|regfile[3][15]                              ; Lost fanout                                ;
+; RF:register_file|regfile[0][14]                              ; Lost fanout                                ;
+; RF:register_file|regfile[1][14]                              ; Lost fanout                                ;
+; RF:register_file|regfile[2][14]                              ; Lost fanout                                ;
+; RF:register_file|regfile[3][14]                              ; Lost fanout                                ;
+; RF:register_file|regfile[0][13]                              ; Lost fanout                                ;
+; RF:register_file|regfile[1][13]                              ; Lost fanout                                ;
+; RF:register_file|regfile[2][13]                              ; Lost fanout                                ;
+; RF:register_file|regfile[3][13]                              ; Lost fanout                                ;
+; RF:register_file|regfile[0][12]                              ; Lost fanout                                ;
+; RF:register_file|regfile[1][12]                              ; Lost fanout                                ;
+; RF:register_file|regfile[2][12]                              ; Lost fanout                                ;
+; RF:register_file|regfile[3][12]                              ; Lost fanout                                ;
+; RF:register_file|regfile[0][11]                              ; Lost fanout                                ;
+; RF:register_file|regfile[1][11]                              ; Lost fanout                                ;
+; RF:register_file|regfile[2][11]                              ; Lost fanout                                ;
+; RF:register_file|regfile[3][11]                              ; Lost fanout                                ;
+; RF:register_file|regfile[0][10]                              ; Lost fanout                                ;
+; RF:register_file|regfile[1][10]                              ; Lost fanout                                ;
+; RF:register_file|regfile[2][10]                              ; Lost fanout                                ;
+; RF:register_file|regfile[3][10]                              ; Lost fanout                                ;
+; RF:register_file|regfile[0][9]                               ; Lost fanout                                ;
+; RF:register_file|regfile[1][9]                               ; Lost fanout                                ;
+; RF:register_file|regfile[2][9]                               ; Lost fanout                                ;
+; RF:register_file|regfile[3][9]                               ; Lost fanout                                ;
+; RF:register_file|regfile[0][8]                               ; Lost fanout                                ;
+; RF:register_file|regfile[1][8]                               ; Lost fanout                                ;
+; RF:register_file|regfile[2][8]                               ; Lost fanout                                ;
+; RF:register_file|regfile[3][8]                               ; Lost fanout                                ;
+; RF:register_file|regfile[0][7]                               ; Lost fanout                                ;
+; RF:register_file|regfile[1][7]                               ; Lost fanout                                ;
+; RF:register_file|regfile[2][7]                               ; Lost fanout                                ;
+; RF:register_file|regfile[3][7]                               ; Lost fanout                                ;
+; RF:register_file|regfile[0][6]                               ; Lost fanout                                ;
+; RF:register_file|regfile[1][6]                               ; Lost fanout                                ;
+; RF:register_file|regfile[2][6]                               ; Lost fanout                                ;
+; RF:register_file|regfile[3][6]                               ; Lost fanout                                ;
+; RF:register_file|regfile[0][5]                               ; Lost fanout                                ;
+; RF:register_file|regfile[1][5]                               ; Lost fanout                                ;
+; RF:register_file|regfile[2][5]                               ; Lost fanout                                ;
+; RF:register_file|regfile[3][5]                               ; Lost fanout                                ;
+; RF:register_file|regfile[0][4]                               ; Lost fanout                                ;
+; RF:register_file|regfile[1][4]                               ; Lost fanout                                ;
+; RF:register_file|regfile[2][4]                               ; Lost fanout                                ;
+; RF:register_file|regfile[3][4]                               ; Lost fanout                                ;
+; RF:register_file|regfile[0][3]                               ; Lost fanout                                ;
+; RF:register_file|regfile[1][3]                               ; Lost fanout                                ;
+; RF:register_file|regfile[2][3]                               ; Lost fanout                                ;
+; RF:register_file|regfile[3][3]                               ; Lost fanout                                ;
+; RF:register_file|regfile[0][2]                               ; Lost fanout                                ;
+; RF:register_file|regfile[1][2]                               ; Lost fanout                                ;
+; RF:register_file|regfile[2][2]                               ; Lost fanout                                ;
+; RF:register_file|regfile[3][2]                               ; Lost fanout                                ;
+; RF:register_file|regfile[0][1]                               ; Lost fanout                                ;
+; RF:register_file|regfile[1][1]                               ; Lost fanout                                ;
+; RF:register_file|regfile[2][1]                               ; Lost fanout                                ;
+; RF:register_file|regfile[3][1]                               ; Lost fanout                                ;
+; CU:control_unit|IR[0,11,12]                                  ; Lost fanout                                ;
+; M:memory|mem[0][8]                                           ; Lost fanout                                ;
+; M:memory|mem[1][8]                                           ; Lost fanout                                ;
+; M:memory|mem[2][8]                                           ; Lost fanout                                ;
+; M:memory|mem[3][8]                                           ; Lost fanout                                ;
+; M:memory|mem[4][8]                                           ; Lost fanout                                ;
+; M:memory|mem[5][8]                                           ; Lost fanout                                ;
+; M:memory|mem[6][8]                                           ; Lost fanout                                ;
+; M:memory|mem[7][8]                                           ; Lost fanout                                ;
+; M:memory|mem[8][8]                                           ; Lost fanout                                ;
+; M:memory|mem[9][8]                                           ; Lost fanout                                ;
+; M:memory|mem[10][8]                                          ; Lost fanout                                ;
+; M:memory|mem[11][8]                                          ; Lost fanout                                ;
+; M:memory|mem[12][8]                                          ; Lost fanout                                ;
+; M:memory|mem[13][8]                                          ; Lost fanout                                ;
+; M:memory|mem[14][8]                                          ; Lost fanout                                ;
+; M:memory|mem[15][8]                                          ; Lost fanout                                ;
+; M:memory|mem[0][7]                                           ; Lost fanout                                ;
+; M:memory|mem[1][7]                                           ; Lost fanout                                ;
+; M:memory|mem[2][7]                                           ; Lost fanout                                ;
+; M:memory|mem[3][7]                                           ; Lost fanout                                ;
+; M:memory|mem[4][7]                                           ; Lost fanout                                ;
+; M:memory|mem[5][7]                                           ; Lost fanout                                ;
+; M:memory|mem[6][7]                                           ; Lost fanout                                ;
+; M:memory|mem[7][7]                                           ; Lost fanout                                ;
+; M:memory|mem[8][7]                                           ; Lost fanout                                ;
+; M:memory|mem[9][7]                                           ; Lost fanout                                ;
+; M:memory|mem[10][7]                                          ; Lost fanout                                ;
+; M:memory|mem[11][7]                                          ; Lost fanout                                ;
+; M:memory|mem[12][7]                                          ; Lost fanout                                ;
+; M:memory|mem[13][7]                                          ; Lost fanout                                ;
+; M:memory|mem[14][7]                                          ; Lost fanout                                ;
+; M:memory|mem[15][7]                                          ; Lost fanout                                ;
+; M:memory|mem[0][6]                                           ; Lost fanout                                ;
+; M:memory|mem[1][6]                                           ; Lost fanout                                ;
+; M:memory|mem[2][6]                                           ; Lost fanout                                ;
+; M:memory|mem[3][6]                                           ; Lost fanout                                ;
+; M:memory|mem[4][6]                                           ; Lost fanout                                ;
+; M:memory|mem[5][6]                                           ; Lost fanout                                ;
+; M:memory|mem[6][6]                                           ; Lost fanout                                ;
+; M:memory|mem[7][6]                                           ; Lost fanout                                ;
+; M:memory|mem[8][6]                                           ; Lost fanout                                ;
+; M:memory|mem[9][6]                                           ; Lost fanout                                ;
+; M:memory|mem[10][6]                                          ; Lost fanout                                ;
+; M:memory|mem[11][6]                                          ; Lost fanout                                ;
+; M:memory|mem[12][6]                                          ; Lost fanout                                ;
+; M:memory|mem[13][6]                                          ; Lost fanout                                ;
+; M:memory|mem[14][6]                                          ; Lost fanout                                ;
+; M:memory|mem[15][6]                                          ; Lost fanout                                ;
+; M:memory|mem[0][5]                                           ; Lost fanout                                ;
+; M:memory|mem[1][5]                                           ; Lost fanout                                ;
+; M:memory|mem[2][5]                                           ; Lost fanout                                ;
+; M:memory|mem[3][5]                                           ; Lost fanout                                ;
+; M:memory|mem[4][5]                                           ; Lost fanout                                ;
+; M:memory|mem[5][5]                                           ; Lost fanout                                ;
+; M:memory|mem[6][5]                                           ; Lost fanout                                ;
+; M:memory|mem[7][5]                                           ; Lost fanout                                ;
+; M:memory|mem[8][5]                                           ; Lost fanout                                ;
+; M:memory|mem[9][5]                                           ; Lost fanout                                ;
+; M:memory|mem[10][5]                                          ; Lost fanout                                ;
+; M:memory|mem[11][5]                                          ; Lost fanout                                ;
+; M:memory|mem[12][5]                                          ; Lost fanout                                ;
+; M:memory|mem[13][5]                                          ; Lost fanout                                ;
+; M:memory|mem[14][5]                                          ; Lost fanout                                ;
+; M:memory|mem[15][5]                                          ; Lost fanout                                ;
+; M:memory|mem[0][4]                                           ; Lost fanout                                ;
+; M:memory|mem[1][4]                                           ; Lost fanout                                ;
+; M:memory|mem[2][4]                                           ; Lost fanout                                ;
+; M:memory|mem[3][4]                                           ; Lost fanout                                ;
+; M:memory|mem[4][4]                                           ; Lost fanout                                ;
+; M:memory|mem[5][4]                                           ; Lost fanout                                ;
+; M:memory|mem[6][4]                                           ; Lost fanout                                ;
+; M:memory|mem[7][4]                                           ; Lost fanout                                ;
+; M:memory|mem[8][4]                                           ; Lost fanout                                ;
+; M:memory|mem[9][4]                                           ; Lost fanout                                ;
+; M:memory|mem[10][4]                                          ; Lost fanout                                ;
+; M:memory|mem[11][4]                                          ; Lost fanout                                ;
+; M:memory|mem[12][4]                                          ; Lost fanout                                ;
+; M:memory|mem[13][4]                                          ; Lost fanout                                ;
+; M:memory|mem[14][4]                                          ; Lost fanout                                ;
+; M:memory|mem[15][4]                                          ; Lost fanout                                ;
+; M:memory|mem[0][3]                                           ; Lost fanout                                ;
+; M:memory|mem[1][3]                                           ; Lost fanout                                ;
+; M:memory|mem[2][3]                                           ; Lost fanout                                ;
+; M:memory|mem[3][3]                                           ; Lost fanout                                ;
+; M:memory|mem[4][3]                                           ; Lost fanout                                ;
+; M:memory|mem[5][3]                                           ; Lost fanout                                ;
+; M:memory|mem[6][3]                                           ; Lost fanout                                ;
+; M:memory|mem[7][3]                                           ; Lost fanout                                ;
+; M:memory|mem[8][3]                                           ; Lost fanout                                ;
+; M:memory|mem[9][3]                                           ; Lost fanout                                ;
+; M:memory|mem[10][3]                                          ; Lost fanout                                ;
+; M:memory|mem[11][3]                                          ; Lost fanout                                ;
+; M:memory|mem[12][3]                                          ; Lost fanout                                ;
+; M:memory|mem[13][3]                                          ; Lost fanout                                ;
+; M:memory|mem[14][3]                                          ; Lost fanout                                ;
+; M:memory|mem[15][3]                                          ; Lost fanout                                ;
+; M:memory|mem[0][2]                                           ; Lost fanout                                ;
+; M:memory|mem[1][2]                                           ; Lost fanout                                ;
+; M:memory|mem[2][2]                                           ; Lost fanout                                ;
+; M:memory|mem[3][2]                                           ; Lost fanout                                ;
+; M:memory|mem[4][2]                                           ; Lost fanout                                ;
+; M:memory|mem[5][2]                                           ; Lost fanout                                ;
+; M:memory|mem[6][2]                                           ; Lost fanout                                ;
+; M:memory|mem[7][2]                                           ; Lost fanout                                ;
+; M:memory|mem[8][2]                                           ; Lost fanout                                ;
+; M:memory|mem[9][2]                                           ; Lost fanout                                ;
+; M:memory|mem[10][2]                                          ; Lost fanout                                ;
+; M:memory|mem[11][2]                                          ; Lost fanout                                ;
+; M:memory|mem[12][2]                                          ; Lost fanout                                ;
+; M:memory|mem[13][2]                                          ; Lost fanout                                ;
+; M:memory|mem[14][2]                                          ; Lost fanout                                ;
+; M:memory|mem[15][2]                                          ; Lost fanout                                ;
+; M:memory|mem[0][1]                                           ; Lost fanout                                ;
+; M:memory|mem[1][1]                                           ; Lost fanout                                ;
+; M:memory|mem[2][1]                                           ; Lost fanout                                ;
+; M:memory|mem[3][1]                                           ; Lost fanout                                ;
+; M:memory|mem[4][1]                                           ; Lost fanout                                ;
+; M:memory|mem[5][1]                                           ; Lost fanout                                ;
+; M:memory|mem[6][1]                                           ; Lost fanout                                ;
+; M:memory|mem[7][1]                                           ; Lost fanout                                ;
+; M:memory|mem[8][1]                                           ; Lost fanout                                ;
+; M:memory|mem[9][1]                                           ; Lost fanout                                ;
+; M:memory|mem[10][1]                                          ; Lost fanout                                ;
+; M:memory|mem[11][1]                                          ; Lost fanout                                ;
+; M:memory|mem[12][1]                                          ; Lost fanout                                ;
+; M:memory|mem[13][1]                                          ; Lost fanout                                ;
+; M:memory|mem[14][1]                                          ; Lost fanout                                ;
+; M:memory|mem[15][1]                                          ; Lost fanout                                ;
+; M:memory|mem[0][9]                                           ; Lost fanout                                ;
+; M:memory|mem[1][9]                                           ; Lost fanout                                ;
+; M:memory|mem[2][9]                                           ; Lost fanout                                ;
+; M:memory|mem[3][9]                                           ; Lost fanout                                ;
+; M:memory|mem[4][9]                                           ; Lost fanout                                ;
+; M:memory|mem[5][9]                                           ; Lost fanout                                ;
+; M:memory|mem[6][9]                                           ; Lost fanout                                ;
+; M:memory|mem[7][9]                                           ; Lost fanout                                ;
+; M:memory|mem[8][9]                                           ; Lost fanout                                ;
+; M:memory|mem[9][9]                                           ; Lost fanout                                ;
+; M:memory|mem[10][9]                                          ; Lost fanout                                ;
+; M:memory|mem[11][9]                                          ; Lost fanout                                ;
+; M:memory|mem[12][9]                                          ; Lost fanout                                ;
+; M:memory|mem[13][9]                                          ; Lost fanout                                ;
+; M:memory|mem[14][9]                                          ; Lost fanout                                ;
+; M:memory|mem[15][9]                                          ; Lost fanout                                ;
+; M:memory|mem[0][10]                                          ; Lost fanout                                ;
+; M:memory|mem[1][10]                                          ; Lost fanout                                ;
+; M:memory|mem[2][10]                                          ; Lost fanout                                ;
+; M:memory|mem[3][10]                                          ; Lost fanout                                ;
+; M:memory|mem[4][10]                                          ; Lost fanout                                ;
+; M:memory|mem[5][10]                                          ; Lost fanout                                ;
+; M:memory|mem[6][10]                                          ; Lost fanout                                ;
+; M:memory|mem[7][10]                                          ; Lost fanout                                ;
+; M:memory|mem[8][10]                                          ; Lost fanout                                ;
+; M:memory|mem[9][10]                                          ; Lost fanout                                ;
+; M:memory|mem[10][10]                                         ; Lost fanout                                ;
+; M:memory|mem[11][10]                                         ; Lost fanout                                ;
+; M:memory|mem[12][10]                                         ; Lost fanout                                ;
+; M:memory|mem[13][10]                                         ; Lost fanout                                ;
+; M:memory|mem[14][10]                                         ; Lost fanout                                ;
+; M:memory|mem[15][10]                                         ; Lost fanout                                ;
+; CU:control_unit|alu_result_buf[0]                            ; Lost fanout                                ;
+; CU:control_unit|mem_data_buf[0]                              ; Lost fanout                                ;
+; CU:control_unit|alu_result_buf[15]                           ; Lost fanout                                ;
+; CU:control_unit|mem_data_buf[15]                             ; Lost fanout                                ;
+; CU:control_unit|alu_result_buf[14]                           ; Lost fanout                                ;
+; CU:control_unit|mem_data_buf[14]                             ; Lost fanout                                ;
+; CU:control_unit|alu_result_buf[13]                           ; Lost fanout                                ;
+; CU:control_unit|mem_data_buf[13]                             ; Lost fanout                                ;
+; CU:control_unit|alu_result_buf[12]                           ; Lost fanout                                ;
+; CU:control_unit|mem_data_buf[12]                             ; Lost fanout                                ;
+; CU:control_unit|alu_result_buf[11]                           ; Lost fanout                                ;
+; CU:control_unit|mem_data_buf[11]                             ; Lost fanout                                ;
+; CU:control_unit|alu_result_buf[10]                           ; Lost fanout                                ;
+; CU:control_unit|mem_data_buf[10]                             ; Lost fanout                                ;
+; CU:control_unit|alu_result_buf[9]                            ; Lost fanout                                ;
+; CU:control_unit|mem_data_buf[9]                              ; Lost fanout                                ;
+; CU:control_unit|alu_result_buf[8]                            ; Lost fanout                                ;
+; CU:control_unit|mem_data_buf[8]                              ; Lost fanout                                ;
+; CU:control_unit|alu_result_buf[7]                            ; Lost fanout                                ;
+; CU:control_unit|mem_data_buf[7]                              ; Lost fanout                                ;
+; CU:control_unit|alu_result_buf[6]                            ; Lost fanout                                ;
+; CU:control_unit|mem_data_buf[6]                              ; Lost fanout                                ;
+; CU:control_unit|alu_result_buf[5]                            ; Lost fanout                                ;
+; CU:control_unit|mem_data_buf[5]                              ; Lost fanout                                ;
+; CU:control_unit|alu_result_buf[4]                            ; Lost fanout                                ;
+; CU:control_unit|mem_data_buf[4]                              ; Lost fanout                                ;
+; CU:control_unit|alu_result_buf[3]                            ; Lost fanout                                ;
+; CU:control_unit|mem_data_buf[3]                              ; Lost fanout                                ;
+; CU:control_unit|alu_result_buf[2]                            ; Lost fanout                                ;
+; CU:control_unit|mem_data_buf[2]                              ; Lost fanout                                ;
+; CU:control_unit|alu_result_buf[1]                            ; Lost fanout                                ;
+; CU:control_unit|mem_data_buf[1]                              ; Lost fanout                                ;
+; M:memory|mem[0][0]                                           ; Lost fanout                                ;
+; M:memory|mem[1][0]                                           ; Lost fanout                                ;
+; M:memory|mem[2][0]                                           ; Lost fanout                                ;
+; M:memory|mem[3][0]                                           ; Lost fanout                                ;
+; M:memory|mem[4][0]                                           ; Lost fanout                                ;
+; M:memory|mem[5][0]                                           ; Lost fanout                                ;
+; M:memory|mem[6][0]                                           ; Lost fanout                                ;
+; M:memory|mem[7][0]                                           ; Lost fanout                                ;
+; M:memory|mem[8][0]                                           ; Lost fanout                                ;
+; M:memory|mem[9][0]                                           ; Lost fanout                                ;
+; M:memory|mem[10][0]                                          ; Lost fanout                                ;
+; M:memory|mem[11][0]                                          ; Lost fanout                                ;
+; M:memory|mem[12][0]                                          ; Lost fanout                                ;
+; M:memory|mem[13][0]                                          ; Lost fanout                                ;
+; M:memory|mem[14][0]                                          ; Lost fanout                                ;
+; M:memory|mem[15][0]                                          ; Lost fanout                                ;
+; M:memory|mem[0][11]                                          ; Lost fanout                                ;
+; M:memory|mem[1][11]                                          ; Lost fanout                                ;
+; M:memory|mem[2][11]                                          ; Lost fanout                                ;
+; M:memory|mem[3][11]                                          ; Lost fanout                                ;
+; M:memory|mem[4][11]                                          ; Lost fanout                                ;
+; M:memory|mem[5][11]                                          ; Lost fanout                                ;
+; M:memory|mem[6][11]                                          ; Lost fanout                                ;
+; M:memory|mem[7][11]                                          ; Lost fanout                                ;
+; M:memory|mem[8][11]                                          ; Lost fanout                                ;
+; M:memory|mem[9][11]                                          ; Lost fanout                                ;
+; M:memory|mem[10][11]                                         ; Lost fanout                                ;
+; M:memory|mem[11][11]                                         ; Lost fanout                                ;
+; M:memory|mem[12][11]                                         ; Lost fanout                                ;
+; M:memory|mem[13][11]                                         ; Lost fanout                                ;
+; M:memory|mem[14][11]                                         ; Lost fanout                                ;
+; M:memory|mem[15][11]                                         ; Lost fanout                                ;
+; M:memory|mem[0][12]                                          ; Lost fanout                                ;
+; M:memory|mem[1][12]                                          ; Lost fanout                                ;
+; M:memory|mem[2][12]                                          ; Lost fanout                                ;
+; M:memory|mem[3][12]                                          ; Lost fanout                                ;
+; M:memory|mem[4][12]                                          ; Lost fanout                                ;
+; M:memory|mem[5][12]                                          ; Lost fanout                                ;
+; M:memory|mem[6][12]                                          ; Lost fanout                                ;
+; M:memory|mem[7][12]                                          ; Lost fanout                                ;
+; M:memory|mem[8][12]                                          ; Lost fanout                                ;
+; M:memory|mem[9][12]                                          ; Lost fanout                                ;
+; M:memory|mem[10][12]                                         ; Lost fanout                                ;
+; M:memory|mem[11][12]                                         ; Lost fanout                                ;
+; M:memory|mem[12][12]                                         ; Lost fanout                                ;
+; M:memory|mem[13][12]                                         ; Lost fanout                                ;
+; M:memory|mem[14][12]                                         ; Lost fanout                                ;
+; M:memory|mem[15][12]                                         ; Lost fanout                                ;
+; ALU:alu|RD:divider|Count_Q_reg[0..3]                         ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul1_inst|Count_Q_reg[0..2]         ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul2_inst|Count_Q_reg[0..2]         ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul0_inst|Count_Q_reg[0..2]         ; Lost fanout                                ;
+; ALU:alu|K:multiplier|product_reg[0]                          ; Lost fanout                                ;
+; ALU:alu|RD:divider|Quotient_Q_reg[0..15]                     ; Lost fanout                                ;
+; ALU:alu|RD:divider|Sign_Quotient_Q_reg                       ; Lost fanout                                ;
+; ALU:alu|K:multiplier|product_reg[1..15]                      ; Lost fanout                                ;
+; ALU:alu|RD:divider|Remainder_Q_reg[0..14]                    ; Lost fanout                                ;
+; ALU:alu|RD:divider|Divisor_Q_reg[0]                          ; Lost fanout                                ;
+; ALU:alu|RD:divider|Remainder_Q_reg[15]                       ; Lost fanout                                ;
+; ALU:alu|RD:divider|Divisor_Q_reg[1..15]                      ; Lost fanout                                ;
+; ALU:alu|RD:divider|Dividend_Q_reg[15]                        ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul0_inst|Product_Q_reg[0..7]       ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul1_inst|Product_Q_reg[0]          ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul2_inst|Product_Q_reg[0]          ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul1_inst|Product_Q_reg[1]          ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul2_inst|Product_Q_reg[1]          ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul1_inst|Product_Q_reg[2]          ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul2_inst|Product_Q_reg[2]          ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul1_inst|Product_Q_reg[3]          ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul2_inst|Product_Q_reg[3]          ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul1_inst|Product_Q_reg[4]          ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul2_inst|Product_Q_reg[4]          ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul1_inst|Product_Q_reg[5]          ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul2_inst|Product_Q_reg[5]          ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul1_inst|Product_Q_reg[6]          ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul2_inst|Product_Q_reg[6]          ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul1_inst|Product_Q_reg[7]          ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul2_inst|Product_Q_reg[7]          ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul0_inst|Product_Q_reg[8..15]      ; Lost fanout                                ;
+; ALU:alu|RD:divider|Dividend_Q_reg[13,14]                     ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplicand_Q_reg[0..15] ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplier_Q_reg[0]       ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplicand_Q_reg[0..15] ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul1_inst|Product_Q_reg[8..15]      ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplier_Q_reg[0]       ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplicand_Q_reg[0..15] ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul2_inst|Product_Q_reg[8..15]      ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplier_Q_reg[0]       ; Lost fanout                                ;
+; ALU:alu|RD:divider|Dividend_Q_reg[11,12]                     ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplier_Q_reg[1]       ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplier_Q_reg[1]       ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplier_Q_reg[1]       ; Lost fanout                                ;
+; ALU:alu|RD:divider|Dividend_Q_reg[9,10]                      ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplier_Q_reg[2]       ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplier_Q_reg[2]       ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplier_Q_reg[2]       ; Lost fanout                                ;
+; ALU:alu|RD:divider|Dividend_Q_reg[7,8]                       ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplier_Q_reg[3]       ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplier_Q_reg[3]       ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplier_Q_reg[3]       ; Lost fanout                                ;
+; ALU:alu|RD:divider|Dividend_Q_reg[5,6]                       ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplier_Q_reg[4]       ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplier_Q_reg[4]       ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplier_Q_reg[4]       ; Lost fanout                                ;
+; ALU:alu|RD:divider|Dividend_Q_reg[3,4]                       ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplier_Q_reg[5]       ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplier_Q_reg[5]       ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplier_Q_reg[5]       ; Lost fanout                                ;
+; ALU:alu|RD:divider|Dividend_Q_reg[1,2]                       ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplier_Q_reg[6]       ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplier_Q_reg[6]       ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplier_Q_reg[6]       ; Lost fanout                                ;
+; ALU:alu|RD:divider|Dividend_Q_reg[0]                         ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplier_Q_reg[7]       ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplier_Q_reg[7]       ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplier_Q_reg[7]       ; Lost fanout                                ;
+; ALU:alu|state.S_WAIT                                         ; Lost fanout                                ;
+; ALU:alu|state.S_DONE                                         ; Lost fanout                                ;
+; ALU:alu|state.S_IDLE                                         ; Lost fanout                                ;
+; ALU:alu|RD:divider|State_Q_reg.WORK                          ; Lost fanout                                ;
+; ALU:alu|RD:divider|State_Q_reg.DONE                          ; Lost fanout                                ;
+; ALU:alu|RD:divider|State_Q_reg.00                            ; Lost fanout                                ;
+; ALU:alu|K:multiplier|state_reg.IDLE                          ; Lost fanout                                ;
+; ALU:alu|K:multiplier|state_reg.PRE_CALC                      ; Lost fanout                                ;
+; ALU:alu|K:multiplier|state_reg.START_MUL_Z0                  ; Lost fanout                                ;
+; ALU:alu|K:multiplier|state_reg.WAIT_MUL_Z0                   ; Lost fanout                                ;
+; ALU:alu|K:multiplier|state_reg.START_MUL_Z2                  ; Lost fanout                                ;
+; ALU:alu|K:multiplier|state_reg.WAIT_MUL_Z2                   ; Lost fanout                                ;
+; ALU:alu|K:multiplier|state_reg.START_MUL_Z1                  ; Lost fanout                                ;
+; ALU:alu|K:multiplier|state_reg.WAIT_MUL_Z1                   ; Lost fanout                                ;
+; ALU:alu|K:multiplier|state_reg.FINAL_CALC                    ; Lost fanout                                ;
+; ALU:alu|K:multiplier|state_reg.DONE                          ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul1_inst|State_Q_reg.WORK          ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul1_inst|State_Q_reg.DONE          ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul1_inst|State_Q_reg.00            ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul2_inst|State_Q_reg.WORK          ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul2_inst|State_Q_reg.DONE          ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul2_inst|State_Q_reg.00            ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul0_inst|State_Q_reg.WORK          ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul0_inst|State_Q_reg.DONE          ; Lost fanout                                ;
+; ALU:alu|K:multiplier|SAM:mul0_inst|State_Q_reg.00            ; Lost fanout                                ;
+; CU:control_unit|state.WB                                     ; Lost fanout                                ;
+; CU:control_unit|state.FETCH                                  ; Lost fanout                                ;
+; CU:control_unit|state.DECODE                                 ; Lost fanout                                ;
+; CU:control_unit|state.EXEC                                   ; Lost fanout                                ;
+; CU:control_unit|state.MEM                                    ; Lost fanout                                ;
+; Total Number of Removed Registers = 700                      ;                                            ;
++--------------------------------------------------------------+--------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Removed Registers Triggering Further Register Optimizations                                                                                                                 ;
++---------------------------------------------------------+---------------------------+---------------------------------------------------------------------------------------+
+; Register name                                           ; Reason for Removal        ; Registers Removed due to This Register                                                ;
++---------------------------------------------------------+---------------------------+---------------------------------------------------------------------------------------+
+; CU:control_unit|base_val[0]                             ; Lost Fanouts              ; CU:control_unit|IR[9], CU:control_unit|IR[10], RF:register_file|regfile[0][0],        ;
+;                                                         ;                           ; RF:register_file|regfile[1][0], RF:register_file|regfile[2][0],                       ;
+;                                                         ;                           ; RF:register_file|regfile[3][0], M:memory|mem[0][9], M:memory|mem[1][9],               ;
+;                                                         ;                           ; M:memory|mem[2][9], M:memory|mem[0][10], M:memory|mem[1][10], M:memory|mem[2][10],    ;
+;                                                         ;                           ; CU:control_unit|alu_result_buf[0], CU:control_unit|mem_data_buf[0],                   ;
+;                                                         ;                           ; ALU:alu|K:multiplier|product_reg[0], ALU:alu|RD:divider|Quotient_Q_reg[0],            ;
+;                                                         ;                           ; ALU:alu|RD:divider|Sign_Quotient_Q_reg, ALU:alu|RD:divider|Remainder_Q_reg[14],       ;
+;                                                         ;                           ; ALU:alu|RD:divider|Remainder_Q_reg[13], ALU:alu|RD:divider|Remainder_Q_reg[12],       ;
+;                                                         ;                           ; ALU:alu|RD:divider|Remainder_Q_reg[11], ALU:alu|RD:divider|Remainder_Q_reg[10],       ;
+;                                                         ;                           ; ALU:alu|RD:divider|Remainder_Q_reg[9], ALU:alu|RD:divider|Remainder_Q_reg[8],         ;
+;                                                         ;                           ; ALU:alu|RD:divider|Remainder_Q_reg[7], ALU:alu|RD:divider|Remainder_Q_reg[6],         ;
+;                                                         ;                           ; ALU:alu|RD:divider|Remainder_Q_reg[5], ALU:alu|RD:divider|Remainder_Q_reg[4],         ;
+;                                                         ;                           ; ALU:alu|RD:divider|Remainder_Q_reg[3], ALU:alu|RD:divider|Remainder_Q_reg[2],         ;
+;                                                         ;                           ; ALU:alu|RD:divider|Remainder_Q_reg[1], ALU:alu|RD:divider|Remainder_Q_reg[0],         ;
+;                                                         ;                           ; ALU:alu|RD:divider|Dividend_Q_reg[15], ALU:alu|RD:divider|Dividend_Q_reg[14],         ;
+;                                                         ;                           ; ALU:alu|RD:divider|Dividend_Q_reg[13], ALU:alu|RD:divider|Dividend_Q_reg[12],         ;
+;                                                         ;                           ; ALU:alu|RD:divider|Dividend_Q_reg[11], ALU:alu|RD:divider|Dividend_Q_reg[10],         ;
+;                                                         ;                           ; ALU:alu|RD:divider|Dividend_Q_reg[9], ALU:alu|RD:divider|Dividend_Q_reg[8],           ;
+;                                                         ;                           ; ALU:alu|RD:divider|Dividend_Q_reg[7], ALU:alu|RD:divider|Dividend_Q_reg[6],           ;
+;                                                         ;                           ; ALU:alu|RD:divider|Dividend_Q_reg[5], ALU:alu|RD:divider|Dividend_Q_reg[4],           ;
+;                                                         ;                           ; ALU:alu|RD:divider|Dividend_Q_reg[3], ALU:alu|RD:divider|Dividend_Q_reg[2],           ;
+;                                                         ;                           ; ALU:alu|RD:divider|Dividend_Q_reg[1], ALU:alu|RD:divider|Dividend_Q_reg[0]            ;
+; CU:control_unit|state~4                                 ; Lost Fanouts              ; CU:control_unit|IR[15], CU:control_unit|IR[14], CU:control_unit|PC[0],                ;
+;                                                         ;                           ; CU:control_unit|offset_val[10], CU:control_unit|PC[1], CU:control_unit|PC[2],         ;
+;                                                         ;                           ; CU:control_unit|PC[3], M:memory|mem[0][15], M:memory|mem[1][15], M:memory|mem[2][15], ;
+;                                                         ;                           ; CU:control_unit|PC[15], CU:control_unit|PC[14], CU:control_unit|PC[5],                ;
+;                                                         ;                           ; CU:control_unit|PC[4], M:memory|mem[0][14], M:memory|mem[1][14], M:memory|mem[2][14], ;
+;                                                         ;                           ; CU:control_unit|IR[8], CU:control_unit|IR[11], CU:control_unit|IR[12],                ;
+;                                                         ;                           ; M:memory|mem[0][8], M:memory|mem[1][8], M:memory|mem[2][8], M:memory|mem[0][11],      ;
+;                                                         ;                           ; M:memory|mem[1][11], M:memory|mem[2][11], M:memory|mem[0][12], M:memory|mem[1][12],   ;
+;                                                         ;                           ; M:memory|mem[2][12], CU:control_unit|state.WB, CU:control_unit|state.FETCH,           ;
+;                                                         ;                           ; CU:control_unit|state.EXEC, CU:control_unit|state.MEM                                 ;
+; ALU:alu|K:multiplier|state_reg~4                        ; Lost Fanouts              ; ALU:alu|K:multiplier|SAM:mul1_inst|Done_Q_reg,                                        ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul2_inst|Done_Q_reg,                                        ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul0_inst|Done_Q_reg,                                        ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul1_inst|Count_Q_reg[3],                                    ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul2_inst|Count_Q_reg[3],                                    ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul0_inst|Count_Q_reg[3],                                    ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul1_inst|Count_Q_reg[0],                                    ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul1_inst|Count_Q_reg[1],                                    ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul1_inst|Count_Q_reg[2],                                    ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul2_inst|Count_Q_reg[0],                                    ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul2_inst|Count_Q_reg[1],                                    ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul2_inst|Count_Q_reg[2],                                    ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul0_inst|Count_Q_reg[0],                                    ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul0_inst|Count_Q_reg[1],                                    ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul0_inst|Count_Q_reg[2],                                    ;
+;                                                         ;                           ; ALU:alu|K:multiplier|state_reg.START_MUL_Z0,                                          ;
+;                                                         ;                           ; ALU:alu|K:multiplier|state_reg.START_MUL_Z2,                                          ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul1_inst|State_Q_reg.WORK,                                  ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul1_inst|State_Q_reg.DONE,                                  ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul1_inst|State_Q_reg.00,                                    ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul2_inst|State_Q_reg.WORK,                                  ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul2_inst|State_Q_reg.DONE,                                  ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul2_inst|State_Q_reg.00,                                    ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul0_inst|State_Q_reg.WORK,                                  ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul0_inst|State_Q_reg.DONE,                                  ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul0_inst|State_Q_reg.00                                     ;
+; ALU:alu|K:multiplier|SAM:mul2_inst|Product_Q_reg[0]     ; Lost Fanouts              ; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplicand_Q_reg[15],                            ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplicand_Q_reg[14],                            ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplicand_Q_reg[13],                            ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplicand_Q_reg[12],                            ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplicand_Q_reg[11],                            ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplicand_Q_reg[10],                            ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplicand_Q_reg[9],                             ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplicand_Q_reg[8],                             ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplicand_Q_reg[7],                             ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplicand_Q_reg[6],                             ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplicand_Q_reg[5],                             ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplicand_Q_reg[4],                             ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplicand_Q_reg[3],                             ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplicand_Q_reg[2],                             ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplicand_Q_reg[1],                             ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplicand_Q_reg[0],                             ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplier_Q_reg[0],                               ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplier_Q_reg[1],                               ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplier_Q_reg[2],                               ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplier_Q_reg[3],                               ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplier_Q_reg[4],                               ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplier_Q_reg[5],                               ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplier_Q_reg[6],                               ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplier_Q_reg[7]                                ;
+; ALU:alu|K:multiplier|SAM:mul1_inst|Product_Q_reg[0]     ; Lost Fanouts              ; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplicand_Q_reg[15],                            ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplicand_Q_reg[14],                            ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplicand_Q_reg[13],                            ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplicand_Q_reg[12],                            ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplicand_Q_reg[11],                            ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplicand_Q_reg[10],                            ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplicand_Q_reg[9],                             ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplicand_Q_reg[8],                             ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplicand_Q_reg[7],                             ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplicand_Q_reg[6],                             ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplicand_Q_reg[5],                             ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplicand_Q_reg[4],                             ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplicand_Q_reg[3],                             ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplicand_Q_reg[2],                             ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplicand_Q_reg[1],                             ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplicand_Q_reg[0],                             ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplier_Q_reg[0],                               ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplier_Q_reg[1],                               ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplier_Q_reg[2],                               ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplier_Q_reg[3],                               ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplier_Q_reg[4],                               ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplier_Q_reg[5],                               ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplier_Q_reg[6],                               ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplier_Q_reg[7]                                ;
+; ALU:alu|K:multiplier|SAM:mul0_inst|Product_Q_reg[0]     ; Lost Fanouts              ; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplicand_Q_reg[15],                            ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplicand_Q_reg[14],                            ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplicand_Q_reg[13],                            ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplicand_Q_reg[12],                            ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplicand_Q_reg[11],                            ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplicand_Q_reg[10],                            ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplicand_Q_reg[9],                             ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplicand_Q_reg[8],                             ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplicand_Q_reg[7],                             ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplicand_Q_reg[6],                             ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplicand_Q_reg[5],                             ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplicand_Q_reg[4],                             ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplicand_Q_reg[3],                             ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplicand_Q_reg[2],                             ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplicand_Q_reg[1],                             ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplicand_Q_reg[0],                             ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplier_Q_reg[0],                               ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplier_Q_reg[1],                               ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplier_Q_reg[2],                               ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplier_Q_reg[3],                               ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplier_Q_reg[4],                               ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplier_Q_reg[5],                               ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplier_Q_reg[6],                               ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplier_Q_reg[7]                                ;
+; CU:control_unit|base_val[14]                            ; Lost Fanouts              ; RF:register_file|regfile[0][14], RF:register_file|regfile[1][14],                     ;
+;                                                         ;                           ; RF:register_file|regfile[2][14], RF:register_file|regfile[3][14],                     ;
+;                                                         ;                           ; CU:control_unit|alu_result_buf[14], CU:control_unit|mem_data_buf[14],                 ;
+;                                                         ;                           ; ALU:alu|RD:divider|Quotient_Q_reg[14], ALU:alu|RD:divider|Quotient_Q_reg[13],         ;
+;                                                         ;                           ; ALU:alu|RD:divider|Quotient_Q_reg[12], ALU:alu|K:multiplier|product_reg[14]           ;
+; CU:control_unit|base_val[15]                            ; Lost Fanouts              ; RF:register_file|regfile[0][15], RF:register_file|regfile[1][15],                     ;
+;                                                         ;                           ; RF:register_file|regfile[2][15], RF:register_file|regfile[3][15],                     ;
+;                                                         ;                           ; CU:control_unit|alu_result_buf[15], CU:control_unit|mem_data_buf[15],                 ;
+;                                                         ;                           ; ALU:alu|RD:divider|Quotient_Q_reg[15], ALU:alu|K:multiplier|product_reg[15]           ;
+; CU:control_unit|base_val[11]                            ; Lost Fanouts              ; RF:register_file|regfile[0][11], RF:register_file|regfile[1][11],                     ;
+;                                                         ;                           ; RF:register_file|regfile[2][11], RF:register_file|regfile[3][11],                     ;
+;                                                         ;                           ; CU:control_unit|alu_result_buf[11], CU:control_unit|mem_data_buf[11],                 ;
+;                                                         ;                           ; ALU:alu|RD:divider|Quotient_Q_reg[11], ALU:alu|K:multiplier|product_reg[11]           ;
+; CU:control_unit|base_val[10]                            ; Lost Fanouts              ; RF:register_file|regfile[0][10], RF:register_file|regfile[1][10],                     ;
+;                                                         ;                           ; RF:register_file|regfile[2][10], RF:register_file|regfile[3][10],                     ;
+;                                                         ;                           ; CU:control_unit|alu_result_buf[10], CU:control_unit|mem_data_buf[10],                 ;
+;                                                         ;                           ; ALU:alu|RD:divider|Quotient_Q_reg[10], ALU:alu|K:multiplier|product_reg[10]           ;
+; CU:control_unit|base_val[9]                             ; Lost Fanouts              ; RF:register_file|regfile[0][9], RF:register_file|regfile[1][9],                       ;
+;                                                         ;                           ; RF:register_file|regfile[2][9], RF:register_file|regfile[3][9],                       ;
+;                                                         ;                           ; CU:control_unit|alu_result_buf[9], CU:control_unit|mem_data_buf[9],                   ;
+;                                                         ;                           ; ALU:alu|RD:divider|Quotient_Q_reg[9], ALU:alu|K:multiplier|product_reg[9]             ;
+; CU:control_unit|base_val[8]                             ; Lost Fanouts              ; RF:register_file|regfile[0][8], RF:register_file|regfile[1][8],                       ;
+;                                                         ;                           ; RF:register_file|regfile[2][8], RF:register_file|regfile[3][8],                       ;
+;                                                         ;                           ; CU:control_unit|alu_result_buf[8], CU:control_unit|mem_data_buf[8],                   ;
+;                                                         ;                           ; ALU:alu|RD:divider|Quotient_Q_reg[8], ALU:alu|K:multiplier|product_reg[8]             ;
+; CU:control_unit|base_val[7]                             ; Lost Fanouts              ; RF:register_file|regfile[0][7], RF:register_file|regfile[1][7],                       ;
+;                                                         ;                           ; RF:register_file|regfile[2][7], RF:register_file|regfile[3][7],                       ;
+;                                                         ;                           ; CU:control_unit|alu_result_buf[7], CU:control_unit|mem_data_buf[7],                   ;
+;                                                         ;                           ; ALU:alu|RD:divider|Quotient_Q_reg[7], ALU:alu|K:multiplier|product_reg[7]             ;
+; CU:control_unit|base_val[6]                             ; Lost Fanouts              ; RF:register_file|regfile[0][6], RF:register_file|regfile[1][6],                       ;
+;                                                         ;                           ; RF:register_file|regfile[2][6], RF:register_file|regfile[3][6],                       ;
+;                                                         ;                           ; CU:control_unit|alu_result_buf[6], CU:control_unit|mem_data_buf[6],                   ;
+;                                                         ;                           ; ALU:alu|RD:divider|Quotient_Q_reg[6], ALU:alu|K:multiplier|product_reg[6]             ;
+; CU:control_unit|base_val[5]                             ; Lost Fanouts              ; RF:register_file|regfile[0][5], RF:register_file|regfile[1][5],                       ;
+;                                                         ;                           ; RF:register_file|regfile[2][5], RF:register_file|regfile[3][5],                       ;
+;                                                         ;                           ; CU:control_unit|alu_result_buf[5], CU:control_unit|mem_data_buf[5],                   ;
+;                                                         ;                           ; ALU:alu|RD:divider|Quotient_Q_reg[5], ALU:alu|K:multiplier|product_reg[5]             ;
+; CU:control_unit|base_val[4]                             ; Lost Fanouts              ; RF:register_file|regfile[0][4], RF:register_file|regfile[1][4],                       ;
+;                                                         ;                           ; RF:register_file|regfile[2][4], RF:register_file|regfile[3][4],                       ;
+;                                                         ;                           ; CU:control_unit|alu_result_buf[4], CU:control_unit|mem_data_buf[4],                   ;
+;                                                         ;                           ; ALU:alu|RD:divider|Quotient_Q_reg[4], ALU:alu|K:multiplier|product_reg[4]             ;
+; CU:control_unit|base_val[3]                             ; Lost Fanouts              ; RF:register_file|regfile[0][3], RF:register_file|regfile[1][3],                       ;
+;                                                         ;                           ; RF:register_file|regfile[2][3], RF:register_file|regfile[3][3],                       ;
+;                                                         ;                           ; CU:control_unit|alu_result_buf[3], CU:control_unit|mem_data_buf[3],                   ;
+;                                                         ;                           ; ALU:alu|RD:divider|Quotient_Q_reg[3], ALU:alu|K:multiplier|product_reg[3]             ;
+; CU:control_unit|base_val[2]                             ; Lost Fanouts              ; RF:register_file|regfile[0][2], RF:register_file|regfile[1][2],                       ;
+;                                                         ;                           ; RF:register_file|regfile[2][2], RF:register_file|regfile[3][2],                       ;
+;                                                         ;                           ; CU:control_unit|alu_result_buf[2], CU:control_unit|mem_data_buf[2],                   ;
+;                                                         ;                           ; ALU:alu|RD:divider|Quotient_Q_reg[2], ALU:alu|K:multiplier|product_reg[2]             ;
+; CU:control_unit|base_val[1]                             ; Lost Fanouts              ; RF:register_file|regfile[0][1], RF:register_file|regfile[1][1],                       ;
+;                                                         ;                           ; RF:register_file|regfile[2][1], RF:register_file|regfile[3][1],                       ;
+;                                                         ;                           ; CU:control_unit|alu_result_buf[1], CU:control_unit|mem_data_buf[1],                   ;
+;                                                         ;                           ; ALU:alu|RD:divider|Quotient_Q_reg[1], ALU:alu|K:multiplier|product_reg[1]             ;
+; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplier_Q_reg[15] ; Stuck at GND              ; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplier_Q_reg[14],                              ;
+;                                                         ; due to stuck port data_in ; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplier_Q_reg[13],                              ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplier_Q_reg[12],                              ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplier_Q_reg[11],                              ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplier_Q_reg[10],                              ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplier_Q_reg[9],                               ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul2_inst|Multiplier_Q_reg[8]                                ;
+; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplier_Q_reg[15] ; Stuck at GND              ; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplier_Q_reg[14],                              ;
+;                                                         ; due to stuck port data_in ; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplier_Q_reg[13],                              ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplier_Q_reg[12],                              ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplier_Q_reg[11],                              ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplier_Q_reg[10],                              ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplier_Q_reg[9],                               ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul0_inst|Multiplier_Q_reg[8]                                ;
+; CU:control_unit|base_val[12]                            ; Lost Fanouts              ; RF:register_file|regfile[0][12], RF:register_file|regfile[1][12],                     ;
+;                                                         ;                           ; RF:register_file|regfile[2][12], RF:register_file|regfile[3][12],                     ;
+;                                                         ;                           ; CU:control_unit|alu_result_buf[12], CU:control_unit|mem_data_buf[12],                 ;
+;                                                         ;                           ; ALU:alu|K:multiplier|product_reg[12]                                                  ;
+; CU:control_unit|base_val[13]                            ; Lost Fanouts              ; RF:register_file|regfile[0][13], RF:register_file|regfile[1][13],                     ;
+;                                                         ;                           ; RF:register_file|regfile[2][13], RF:register_file|regfile[3][13],                     ;
+;                                                         ;                           ; CU:control_unit|alu_result_buf[13], CU:control_unit|mem_data_buf[13],                 ;
+;                                                         ;                           ; ALU:alu|K:multiplier|product_reg[13]                                                  ;
+; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplier_Q_reg[15] ; Stuck at GND              ; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplier_Q_reg[14],                              ;
+;                                                         ; due to stuck port data_in ; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplier_Q_reg[13],                              ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplier_Q_reg[12],                              ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplier_Q_reg[11],                              ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplier_Q_reg[10],                              ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplier_Q_reg[9],                               ;
+;                                                         ;                           ; ALU:alu|K:multiplier|SAM:mul1_inst|Multiplier_Q_reg[8]                                ;
+; ALU:alu|RD:divider|Done_Q_reg                           ; Lost Fanouts              ; ALU:alu|RD:divider|Count_Q_reg[4], ALU:alu|RD:divider|State_Q_reg.WORK,               ;
+;                                                         ;                           ; ALU:alu|RD:divider|State_Q_reg.DONE, ALU:alu|RD:divider|State_Q_reg.00                ;
+; CU:control_unit|offset_val[7]                           ; Lost Fanouts              ; CU:control_unit|IR[7], M:memory|mem[0][7], M:memory|mem[1][7], M:memory|mem[2][7]     ;
+; CU:control_unit|offset_val[6]                           ; Lost Fanouts              ; CU:control_unit|IR[6], M:memory|mem[0][6], M:memory|mem[1][6], M:memory|mem[2][6]     ;
+; CU:control_unit|offset_val[5]                           ; Lost Fanouts              ; CU:control_unit|IR[5], M:memory|mem[0][5], M:memory|mem[1][5], M:memory|mem[2][5]     ;
+; CU:control_unit|offset_val[4]                           ; Lost Fanouts              ; CU:control_unit|IR[4], M:memory|mem[0][4], M:memory|mem[1][4], M:memory|mem[2][4]     ;
+; CU:control_unit|offset_val[1]                           ; Lost Fanouts              ; CU:control_unit|IR[1], M:memory|mem[0][1], M:memory|mem[1][1], M:memory|mem[2][1]     ;
+; CU:control_unit|offset_val[0]                           ; Lost Fanouts              ; CU:control_unit|IR[0], M:memory|mem[0][0], M:memory|mem[1][0], M:memory|mem[2][0]     ;
+; CU:control_unit|offset_val[2]                           ; Lost Fanouts              ; CU:control_unit|IR[2], M:memory|mem[0][2], M:memory|mem[1][2], M:memory|mem[2][2]     ;
+; CU:control_unit|offset_val[3]                           ; Lost Fanouts              ; CU:control_unit|IR[3], M:memory|mem[0][3], M:memory|mem[1][3], M:memory|mem[2][3]     ;
+; CU:control_unit|state~5                                 ; Lost Fanouts              ; ALU:alu|Done, ALU:alu|state.S_WAIT, ALU:alu|state.S_DONE                              ;
+; CU:control_unit|IR[13]                                  ; Lost Fanouts              ; M:memory|mem[0][13], M:memory|mem[1][13], M:memory|mem[2][13]                         ;
+; ALU:alu|K:multiplier|state_reg~5                        ; Lost Fanouts              ; ALU:alu|K:multiplier|state_reg.PRE_CALC,                                              ;
+;                                                         ;                           ; ALU:alu|K:multiplier|state_reg.START_MUL_Z1                                           ;
+; ALU:alu|K:multiplier|state_reg~7                        ; Lost Fanouts              ; ALU:alu|K:multiplier|state_reg.FINAL_CALC                                             ;
+; ALU:alu|K:multiplier|done_reg                           ; Lost Fanouts              ; ALU:alu|K:multiplier|state_reg.IDLE                                                   ;
++---------------------------------------------------------+---------------------------+---------------------------------------------------------------------------------------+
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 0     ;
+; Number of registers using Synchronous Clear  ; 0     ;
+; Number of registers using Synchronous Load   ; 0     ;
+; Number of registers using Asynchronous Clear ; 0     ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 0     ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                        ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output              ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------+
+; 3:1                ; 25 bits   ; 50 LEs        ; 0 LEs                ; 50 LEs                 ; Yes        ; |D|CU:control_unit|base_val[2]          ;
+; 5:1                ; 6 bits    ; 18 LEs        ; 18 LEs               ; 0 LEs                  ; Yes        ; |D|CU:control_unit|alu_result_buf[4]    ;
+; 6:1                ; 3 bits    ; 12 LEs        ; 12 LEs               ; 0 LEs                  ; Yes        ; |D|CU:control_unit|alu_result_buf[6]    ;
+; 6:1                ; 3 bits    ; 12 LEs        ; 12 LEs               ; 0 LEs                  ; Yes        ; |D|CU:control_unit|alu_result_buf[11]   ;
+; 6:1                ; 2 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; Yes        ; |D|CU:control_unit|alu_result_buf[13]   ;
+; 4:1                ; 15 bits   ; 30 LEs        ; 15 LEs               ; 15 LEs                 ; Yes        ; |D|ALU:alu|RD:divider|Dividend_Q_reg[4] ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; No         ; |D|CU:control_unit|Mem_Address          ;
+; 4:1                ; 16 bits   ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; No         ; |D|RF:register_file|Mux12               ;
+; 4:1                ; 16 bits   ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; No         ; |D|RF:register_file|Mux18               ;
+; 3:1                ; 13 bits   ; 26 LEs        ; 13 LEs               ; 13 LEs                 ; No         ; |D|CU:control_unit|ALUOP[1]             ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |D|CU:control_unit|RF_Read_Address2[1]  ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; No         ; |D|ALU:alu|RD:divider|Remainder_D       ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; No         ; |D|ALU:alu|RD:divider|Remainder_D       ;
+; 4:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; No         ; |D|CU:control_unit|RF_Write_Address[0]  ;
+; 4:1                ; 16 bits   ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; No         ; |D|CU:control_unit|RF_Write_Data[4]     ;
+; 4:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; No         ; |D|CU:control_unit|Mem_Write_Data[6]    ;
+; 17:1               ; 16 bits   ; 176 LEs       ; 176 LEs              ; 0 LEs                  ; No         ; |D|M:memory|Read_Data[2]                ;
+; 6:1                ; 2 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; No         ; |D|ALU:alu|Selector2                    ;
+; 11:1               ; 5 bits    ; 35 LEs        ; 20 LEs               ; 15 LEs                 ; No         ; |D|ALU:alu|K:multiplier|Selector1       ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------+
+
+
++----------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: ALU:alu|CSA_16bit:adder ;
++----------------+-------+---------------------------------------------+
+; Parameter Name ; Value ; Type                                        ;
++----------------+-------+---------------------------------------------+
+; N              ; 4     ; Signed Integer                              ;
++----------------+-------+---------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: ALU:alu|CSA_16bit:subtractor ;
++----------------+-------+--------------------------------------------------+
+; Parameter Name ; Value ; Type                                             ;
++----------------+-------+--------------------------------------------------+
+; N              ; 4     ; Signed Integer                                   ;
++----------------+-------+--------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "ALU:alu|RD:divider"                                                                      ;
++-----------+--------+----------+-------------------------------------------------------------------------------------+
+; Port      ; Type   ; Severity ; Details                                                                             ;
++-----------+--------+----------+-------------------------------------------------------------------------------------+
+; Remainder ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++-----------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "ALU:alu|K:multiplier"                                                                          ;
++-----------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port            ; Type   ; Severity ; Details                                                                             ;
++-----------------+--------+----------+-------------------------------------------------------------------------------------+
+; Product[31..16] ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++-----------------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "ALU:alu|CSA_16bit:subtractor"                                                        ;
++-------+--------+----------+-------------------------------------------------------------------------------------+
+; Port  ; Type   ; Severity ; Details                                                                             ;
++-------+--------+----------+-------------------------------------------------------------------------------------+
+; C_in  ; Input  ; Info     ; Stuck at VCC                                                                        ;
+; C_out ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++-------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++-------------------------------------------------------------+
+; Port Connectivity Checks: "ALU:alu|CSA_16bit:adder|A:A_3_1" ;
++------+-------+----------+-----------------------------------+
+; Port ; Type  ; Severity ; Details                           ;
++------+-------+----------+-----------------------------------+
+; C_in ; Input ; Info     ; Stuck at VCC                      ;
++------+-------+----------+-----------------------------------+
+
+
++-------------------------------------------------------------+
+; Port Connectivity Checks: "ALU:alu|CSA_16bit:adder|A:A_3_0" ;
++------+-------+----------+-----------------------------------+
+; Port ; Type  ; Severity ; Details                           ;
++------+-------+----------+-----------------------------------+
+; C_in ; Input ; Info     ; Stuck at GND                      ;
++------+-------+----------+-----------------------------------+
+
+
++-------------------------------------------------------------+
+; Port Connectivity Checks: "ALU:alu|CSA_16bit:adder|A:A_2_1" ;
++------+-------+----------+-----------------------------------+
+; Port ; Type  ; Severity ; Details                           ;
++------+-------+----------+-----------------------------------+
+; C_in ; Input ; Info     ; Stuck at VCC                      ;
++------+-------+----------+-----------------------------------+
+
+
++-------------------------------------------------------------+
+; Port Connectivity Checks: "ALU:alu|CSA_16bit:adder|A:A_2_0" ;
++------+-------+----------+-----------------------------------+
+; Port ; Type  ; Severity ; Details                           ;
++------+-------+----------+-----------------------------------+
+; C_in ; Input ; Info     ; Stuck at GND                      ;
++------+-------+----------+-----------------------------------+
+
+
++-------------------------------------------------------------+
+; Port Connectivity Checks: "ALU:alu|CSA_16bit:adder|A:A_1_1" ;
++------+-------+----------+-----------------------------------+
+; Port ; Type  ; Severity ; Details                           ;
++------+-------+----------+-----------------------------------+
+; C_in ; Input ; Info     ; Stuck at VCC                      ;
++------+-------+----------+-----------------------------------+
+
+
++-------------------------------------------------------------+
+; Port Connectivity Checks: "ALU:alu|CSA_16bit:adder|A:A_1_0" ;
++------+-------+----------+-----------------------------------+
+; Port ; Type  ; Severity ; Details                           ;
++------+-------+----------+-----------------------------------+
+; C_in ; Input ; Info     ; Stuck at GND                      ;
++------+-------+----------+-----------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "ALU:alu|CSA_16bit:adder"                                                             ;
++-------+--------+----------+-------------------------------------------------------------------------------------+
+; Port  ; Type   ; Severity ; Details                                                                             ;
++-------+--------+----------+-------------------------------------------------------------------------------------+
+; C_in  ; Input  ; Info     ; Stuck at GND                                                                        ;
+; C_out ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++-------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:01     ;
++----------------+--------------+
+
+
++-------------------------------+
+; Analysis & Synthesis Messages ;
++-------------------------------+
+Info: *******************************************************************
+Info: Running Quartus II 64-Bit Analysis & Synthesis
+    Info: Version 13.1.0 Build 162 10/23/2013 SJ Web Edition
+    Info: Processing started: Sun Jul 20 06:46:29 2025
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off D -c D
+Warning (20028): Parallel compilation is not licensed and has been disabled
+Info (12021): Found 1 design units, including 1 entities, in source file /users/oroji/desktop/dsd_a3-main/summation/sm.v
+    Info (12023): Found entity 1: SM_2to1
+Info (12021): Found 1 design units, including 1 entities, in source file /users/oroji/desktop/dsd_a3-main/summation/m.v
+    Info (12023): Found entity 1: M_2to1
+Info (12021): Found 1 design units, including 1 entities, in source file /users/oroji/desktop/dsd_a3-main/summation/hf.v
+    Info (12023): Found entity 1: HA
+Info (12021): Found 1 design units, including 1 entities, in source file /users/oroji/desktop/dsd_a3-main/summation/fa.v
+    Info (12023): Found entity 1: FA
+Info (12021): Found 1 design units, including 1 entities, in source file /users/oroji/desktop/dsd_a3-main/summation/csa.v
+    Info (12023): Found entity 1: CSA_16bit
+Info (12021): Found 1 design units, including 1 entities, in source file /users/oroji/desktop/dsd_a3-main/summation/a.v
+    Info (12023): Found entity 1: A
+Info (12021): Found 1 design units, including 1 entities, in source file /users/oroji/desktop/dsd_a3-main/register/rf.v
+    Info (12023): Found entity 1: RF
+Info (12021): Found 1 design units, including 1 entities, in source file /users/oroji/desktop/dsd_a3-main/multiply/sam.v
+    Info (12023): Found entity 1: SAM
+Info (12021): Found 1 design units, including 1 entities, in source file /users/oroji/desktop/dsd_a3-main/multiply/k.v
+    Info (12023): Found entity 1: K
+Info (12021): Found 1 design units, including 1 entities, in source file /users/oroji/desktop/dsd_a3-main/memory/m.v
+    Info (12023): Found entity 1: M
+Info (12021): Found 1 design units, including 1 entities, in source file /users/oroji/desktop/dsd_a3-main/division/rd.v
+    Info (12023): Found entity 1: RD
+Info (12021): Found 1 design units, including 1 entities, in source file /users/oroji/desktop/dsd_a3-main/datapath/d.v
+    Info (12023): Found entity 1: D
+Info (12021): Found 1 design units, including 1 entities, in source file /users/oroji/desktop/dsd_a3-main/control.unit/cu.v
+    Info (12023): Found entity 1: CU
+Info (12021): Found 1 design units, including 1 entities, in source file /users/oroji/desktop/dsd_a3-main/arithmetic.and.logical.unit/alu.v
+    Info (12023): Found entity 1: ALU
+Info (12127): Elaborating entity "D" for the top level hierarchy
+Info (12128): Elaborating entity "CU" for hierarchy "CU:control_unit"
+Warning (10036): Verilog HDL or VHDL warning at CU.v(40): object "load_PC" assigned a value but never read
+Warning (10230): Verilog HDL assignment warning at CU.v(168): truncated value with size 32 to match size of target (16)
+Info (12128): Elaborating entity "RF" for hierarchy "RF:register_file"
+Warning (10240): Verilog HDL Always Construct warning at RF.v(15): inferring latch(es) for variable "i", which holds its previous value in one or more paths through the always construct
+Info (12128): Elaborating entity "M" for hierarchy "M:memory"
+Info (12128): Elaborating entity "ALU" for hierarchy "ALU:alu"
+Warning (10036): Verilog HDL or VHDL warning at ALU.v(16): object "add_done" assigned a value but never read
+Warning (10036): Verilog HDL or VHDL warning at ALU.v(16): object "sub_done" assigned a value but never read
+Info (12128): Elaborating entity "CSA_16bit" for hierarchy "ALU:alu|CSA_16bit:adder"
+Info (12128): Elaborating entity "A" for hierarchy "ALU:alu|CSA_16bit:adder|A:A_0"
+Info (12128): Elaborating entity "FA" for hierarchy "ALU:alu|CSA_16bit:adder|A:A_0|FA:fa_0"
+Info (12128): Elaborating entity "HA" for hierarchy "ALU:alu|CSA_16bit:adder|A:A_0|FA:fa_0|HA:ha_0"
+Info (12128): Elaborating entity "M_2to1" for hierarchy "ALU:alu|CSA_16bit:adder|M_2to1:m_0"
+Info (12128): Elaborating entity "SM_2to1" for hierarchy "ALU:alu|CSA_16bit:adder|SM_2to1:sm_0"
+Info (12128): Elaborating entity "K" for hierarchy "ALU:alu|K:multiplier"
+Warning (10230): Verilog HDL assignment warning at K.v(87): truncated value with size 32 to match size of target (16)
+Warning (10230): Verilog HDL assignment warning at K.v(88): truncated value with size 32 to match size of target (16)
+Warning (10240): Verilog HDL Always Construct warning at K.v(77): inferring latch(es) for variable "multiplier_sign", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at K.v(77): inferring latch(es) for variable "multiplicand_sign", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at K.v(77): inferring latch(es) for variable "abs_multiplier", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at K.v(77): inferring latch(es) for variable "abs_multiplicand", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at K.v(77): inferring latch(es) for variable "result_sign", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at K.v(77): inferring latch(es) for variable "xl_reg", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at K.v(77): inferring latch(es) for variable "xh_reg", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at K.v(77): inferring latch(es) for variable "yl_reg", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at K.v(77): inferring latch(es) for variable "yh_reg", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at K.v(77): inferring latch(es) for variable "sum_x", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at K.v(77): inferring latch(es) for variable "sum_y", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at K.v(77): inferring latch(es) for variable "z0_reg", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at K.v(77): inferring latch(es) for variable "z2_reg", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at K.v(77): inferring latch(es) for variable "z1_intermediate_reg", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at K.v(77): inferring latch(es) for variable "z1_reg", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at K.v(77): inferring latch(es) for variable "unsigned_product", which holds its previous value in one or more paths through the always construct
+Info (10041): Inferred latch for "unsigned_product[0]" at K.v(77)
+Info (10041): Inferred latch for "unsigned_product[1]" at K.v(77)
+Info (10041): Inferred latch for "unsigned_product[2]" at K.v(77)
+Info (10041): Inferred latch for "unsigned_product[3]" at K.v(77)
+Info (10041): Inferred latch for "unsigned_product[4]" at K.v(77)
+Info (10041): Inferred latch for "unsigned_product[5]" at K.v(77)
+Info (10041): Inferred latch for "unsigned_product[6]" at K.v(77)
+Info (10041): Inferred latch for "unsigned_product[7]" at K.v(77)
+Info (10041): Inferred latch for "unsigned_product[8]" at K.v(77)
+Info (10041): Inferred latch for "unsigned_product[9]" at K.v(77)
+Info (10041): Inferred latch for "unsigned_product[10]" at K.v(77)
+Info (10041): Inferred latch for "unsigned_product[11]" at K.v(77)
+Info (10041): Inferred latch for "unsigned_product[12]" at K.v(77)
+Info (10041): Inferred latch for "unsigned_product[13]" at K.v(77)
+Info (10041): Inferred latch for "unsigned_product[14]" at K.v(77)
+Info (10041): Inferred latch for "unsigned_product[15]" at K.v(77)
+Info (10041): Inferred latch for "unsigned_product[16]" at K.v(77)
+Info (10041): Inferred latch for "unsigned_product[17]" at K.v(77)
+Info (10041): Inferred latch for "unsigned_product[18]" at K.v(77)
+Info (10041): Inferred latch for "unsigned_product[19]" at K.v(77)
+Info (10041): Inferred latch for "unsigned_product[20]" at K.v(77)
+Info (10041): Inferred latch for "unsigned_product[21]" at K.v(77)
+Info (10041): Inferred latch for "unsigned_product[22]" at K.v(77)
+Info (10041): Inferred latch for "unsigned_product[23]" at K.v(77)
+Info (10041): Inferred latch for "unsigned_product[24]" at K.v(77)
+Info (10041): Inferred latch for "unsigned_product[25]" at K.v(77)
+Info (10041): Inferred latch for "unsigned_product[26]" at K.v(77)
+Info (10041): Inferred latch for "unsigned_product[27]" at K.v(77)
+Info (10041): Inferred latch for "unsigned_product[28]" at K.v(77)
+Info (10041): Inferred latch for "unsigned_product[29]" at K.v(77)
+Info (10041): Inferred latch for "unsigned_product[30]" at K.v(77)
+Info (10041): Inferred latch for "unsigned_product[31]" at K.v(77)
+Info (10041): Inferred latch for "z1_intermediate_reg[0]" at K.v(77)
+Info (10041): Inferred latch for "z1_intermediate_reg[1]" at K.v(77)
+Info (10041): Inferred latch for "z1_intermediate_reg[2]" at K.v(77)
+Info (10041): Inferred latch for "z1_intermediate_reg[3]" at K.v(77)
+Info (10041): Inferred latch for "z1_intermediate_reg[4]" at K.v(77)
+Info (10041): Inferred latch for "z1_intermediate_reg[5]" at K.v(77)
+Info (10041): Inferred latch for "z1_intermediate_reg[6]" at K.v(77)
+Info (10041): Inferred latch for "z1_intermediate_reg[7]" at K.v(77)
+Info (10041): Inferred latch for "z1_intermediate_reg[8]" at K.v(77)
+Info (10041): Inferred latch for "z1_intermediate_reg[9]" at K.v(77)
+Info (10041): Inferred latch for "z1_intermediate_reg[10]" at K.v(77)
+Info (10041): Inferred latch for "z1_intermediate_reg[11]" at K.v(77)
+Info (10041): Inferred latch for "z1_intermediate_reg[12]" at K.v(77)
+Info (10041): Inferred latch for "z1_intermediate_reg[13]" at K.v(77)
+Info (10041): Inferred latch for "z1_intermediate_reg[14]" at K.v(77)
+Info (10041): Inferred latch for "z1_intermediate_reg[15]" at K.v(77)
+Info (10041): Inferred latch for "z2_reg[0]" at K.v(77)
+Info (10041): Inferred latch for "z2_reg[1]" at K.v(77)
+Info (10041): Inferred latch for "z2_reg[2]" at K.v(77)
+Info (10041): Inferred latch for "z2_reg[3]" at K.v(77)
+Info (10041): Inferred latch for "z2_reg[4]" at K.v(77)
+Info (10041): Inferred latch for "z2_reg[5]" at K.v(77)
+Info (10041): Inferred latch for "z2_reg[6]" at K.v(77)
+Info (10041): Inferred latch for "z2_reg[7]" at K.v(77)
+Info (10041): Inferred latch for "z2_reg[8]" at K.v(77)
+Info (10041): Inferred latch for "z2_reg[9]" at K.v(77)
+Info (10041): Inferred latch for "z2_reg[10]" at K.v(77)
+Info (10041): Inferred latch for "z2_reg[11]" at K.v(77)
+Info (10041): Inferred latch for "z2_reg[12]" at K.v(77)
+Info (10041): Inferred latch for "z2_reg[13]" at K.v(77)
+Info (10041): Inferred latch for "z2_reg[14]" at K.v(77)
+Info (10041): Inferred latch for "z2_reg[15]" at K.v(77)
+Info (10041): Inferred latch for "z0_reg[0]" at K.v(77)
+Info (10041): Inferred latch for "z0_reg[1]" at K.v(77)
+Info (10041): Inferred latch for "z0_reg[2]" at K.v(77)
+Info (10041): Inferred latch for "z0_reg[3]" at K.v(77)
+Info (10041): Inferred latch for "z0_reg[4]" at K.v(77)
+Info (10041): Inferred latch for "z0_reg[5]" at K.v(77)
+Info (10041): Inferred latch for "z0_reg[6]" at K.v(77)
+Info (10041): Inferred latch for "z0_reg[7]" at K.v(77)
+Info (10041): Inferred latch for "z0_reg[8]" at K.v(77)
+Info (10041): Inferred latch for "z0_reg[9]" at K.v(77)
+Info (10041): Inferred latch for "z0_reg[10]" at K.v(77)
+Info (10041): Inferred latch for "z0_reg[11]" at K.v(77)
+Info (10041): Inferred latch for "z0_reg[12]" at K.v(77)
+Info (10041): Inferred latch for "z0_reg[13]" at K.v(77)
+Info (10041): Inferred latch for "z0_reg[14]" at K.v(77)
+Info (10041): Inferred latch for "z0_reg[15]" at K.v(77)
+Info (10041): Inferred latch for "sum_y[0]" at K.v(77)
+Info (10041): Inferred latch for "sum_y[1]" at K.v(77)
+Info (10041): Inferred latch for "sum_y[2]" at K.v(77)
+Info (10041): Inferred latch for "sum_y[3]" at K.v(77)
+Info (10041): Inferred latch for "sum_y[4]" at K.v(77)
+Info (10041): Inferred latch for "sum_y[5]" at K.v(77)
+Info (10041): Inferred latch for "sum_y[6]" at K.v(77)
+Info (10041): Inferred latch for "sum_y[7]" at K.v(77)
+Info (10041): Inferred latch for "sum_x[0]" at K.v(77)
+Info (10041): Inferred latch for "sum_x[1]" at K.v(77)
+Info (10041): Inferred latch for "sum_x[2]" at K.v(77)
+Info (10041): Inferred latch for "sum_x[3]" at K.v(77)
+Info (10041): Inferred latch for "sum_x[4]" at K.v(77)
+Info (10041): Inferred latch for "sum_x[5]" at K.v(77)
+Info (10041): Inferred latch for "sum_x[6]" at K.v(77)
+Info (10041): Inferred latch for "sum_x[7]" at K.v(77)
+Info (10041): Inferred latch for "yh_reg[0]" at K.v(77)
+Info (10041): Inferred latch for "yh_reg[1]" at K.v(77)
+Info (10041): Inferred latch for "yh_reg[2]" at K.v(77)
+Info (10041): Inferred latch for "yh_reg[3]" at K.v(77)
+Info (10041): Inferred latch for "yh_reg[4]" at K.v(77)
+Info (10041): Inferred latch for "yh_reg[5]" at K.v(77)
+Info (10041): Inferred latch for "yh_reg[6]" at K.v(77)
+Info (10041): Inferred latch for "yh_reg[7]" at K.v(77)
+Info (10041): Inferred latch for "yl_reg[0]" at K.v(77)
+Info (10041): Inferred latch for "yl_reg[1]" at K.v(77)
+Info (10041): Inferred latch for "yl_reg[2]" at K.v(77)
+Info (10041): Inferred latch for "yl_reg[3]" at K.v(77)
+Info (10041): Inferred latch for "yl_reg[4]" at K.v(77)
+Info (10041): Inferred latch for "yl_reg[5]" at K.v(77)
+Info (10041): Inferred latch for "yl_reg[6]" at K.v(77)
+Info (10041): Inferred latch for "yl_reg[7]" at K.v(77)
+Info (10041): Inferred latch for "xh_reg[0]" at K.v(77)
+Info (10041): Inferred latch for "xh_reg[1]" at K.v(77)
+Info (10041): Inferred latch for "xh_reg[2]" at K.v(77)
+Info (10041): Inferred latch for "xh_reg[3]" at K.v(77)
+Info (10041): Inferred latch for "xh_reg[4]" at K.v(77)
+Info (10041): Inferred latch for "xh_reg[5]" at K.v(77)
+Info (10041): Inferred latch for "xh_reg[6]" at K.v(77)
+Info (10041): Inferred latch for "xh_reg[7]" at K.v(77)
+Info (10041): Inferred latch for "xl_reg[0]" at K.v(77)
+Info (10041): Inferred latch for "xl_reg[1]" at K.v(77)
+Info (10041): Inferred latch for "xl_reg[2]" at K.v(77)
+Info (10041): Inferred latch for "xl_reg[3]" at K.v(77)
+Info (10041): Inferred latch for "xl_reg[4]" at K.v(77)
+Info (10041): Inferred latch for "xl_reg[5]" at K.v(77)
+Info (10041): Inferred latch for "xl_reg[6]" at K.v(77)
+Info (10041): Inferred latch for "xl_reg[7]" at K.v(77)
+Info (10041): Inferred latch for "result_sign" at K.v(77)
+Info (12128): Elaborating entity "SAM" for hierarchy "ALU:alu|K:multiplier|SAM:mul0_inst"
+Warning (10230): Verilog HDL assignment warning at SAM.v(112): truncated value with size 32 to match size of target (4)
+Warning (10240): Verilog HDL Always Construct warning at SAM.v(90): inferring latch(es) for variable "Product_D", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at SAM.v(90): inferring latch(es) for variable "Count_D", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at SAM.v(90): inferring latch(es) for variable "Multiplicand_D", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at SAM.v(90): inferring latch(es) for variable "Multiplier_D", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at SAM.v(90): inferring latch(es) for variable "State_D", which holds its previous value in one or more paths through the always construct
+Info (10041): Inferred latch for "State_D.DONE" at SAM.v(90)
+Info (10041): Inferred latch for "State_D.WORK" at SAM.v(90)
+Info (10041): Inferred latch for "State_D.IDLE" at SAM.v(90)
+Info (10041): Inferred latch for "Multiplier_D[0]" at SAM.v(90)
+Info (10041): Inferred latch for "Multiplier_D[1]" at SAM.v(90)
+Info (10041): Inferred latch for "Multiplier_D[2]" at SAM.v(90)
+Info (10041): Inferred latch for "Multiplier_D[3]" at SAM.v(90)
+Info (10041): Inferred latch for "Multiplier_D[4]" at SAM.v(90)
+Info (10041): Inferred latch for "Multiplier_D[5]" at SAM.v(90)
+Info (10041): Inferred latch for "Multiplier_D[6]" at SAM.v(90)
+Info (10041): Inferred latch for "Multiplier_D[7]" at SAM.v(90)
+Info (10041): Inferred latch for "Multiplier_D[8]" at SAM.v(90)
+Info (10041): Inferred latch for "Multiplier_D[9]" at SAM.v(90)
+Info (10041): Inferred latch for "Multiplier_D[10]" at SAM.v(90)
+Info (10041): Inferred latch for "Multiplier_D[11]" at SAM.v(90)
+Info (10041): Inferred latch for "Multiplier_D[12]" at SAM.v(90)
+Info (10041): Inferred latch for "Multiplier_D[13]" at SAM.v(90)
+Info (10041): Inferred latch for "Multiplier_D[14]" at SAM.v(90)
+Info (10041): Inferred latch for "Multiplier_D[15]" at SAM.v(90)
+Info (10041): Inferred latch for "Multiplicand_D[0]" at SAM.v(90)
+Info (10041): Inferred latch for "Multiplicand_D[1]" at SAM.v(90)
+Info (10041): Inferred latch for "Multiplicand_D[2]" at SAM.v(90)
+Info (10041): Inferred latch for "Multiplicand_D[3]" at SAM.v(90)
+Info (10041): Inferred latch for "Multiplicand_D[4]" at SAM.v(90)
+Info (10041): Inferred latch for "Multiplicand_D[5]" at SAM.v(90)
+Info (10041): Inferred latch for "Multiplicand_D[6]" at SAM.v(90)
+Info (10041): Inferred latch for "Multiplicand_D[7]" at SAM.v(90)
+Info (10041): Inferred latch for "Multiplicand_D[8]" at SAM.v(90)
+Info (10041): Inferred latch for "Multiplicand_D[9]" at SAM.v(90)
+Info (10041): Inferred latch for "Multiplicand_D[10]" at SAM.v(90)
+Info (10041): Inferred latch for "Multiplicand_D[11]" at SAM.v(90)
+Info (10041): Inferred latch for "Multiplicand_D[12]" at SAM.v(90)
+Info (10041): Inferred latch for "Multiplicand_D[13]" at SAM.v(90)
+Info (10041): Inferred latch for "Multiplicand_D[14]" at SAM.v(90)
+Info (10041): Inferred latch for "Multiplicand_D[15]" at SAM.v(90)
+Info (10041): Inferred latch for "Count_D[0]" at SAM.v(90)
+Info (10041): Inferred latch for "Count_D[1]" at SAM.v(90)
+Info (10041): Inferred latch for "Count_D[2]" at SAM.v(90)
+Info (10041): Inferred latch for "Count_D[3]" at SAM.v(90)
+Info (10041): Inferred latch for "Product_D[0]" at SAM.v(90)
+Info (10041): Inferred latch for "Product_D[1]" at SAM.v(90)
+Info (10041): Inferred latch for "Product_D[2]" at SAM.v(90)
+Info (10041): Inferred latch for "Product_D[3]" at SAM.v(90)
+Info (10041): Inferred latch for "Product_D[4]" at SAM.v(90)
+Info (10041): Inferred latch for "Product_D[5]" at SAM.v(90)
+Info (10041): Inferred latch for "Product_D[6]" at SAM.v(90)
+Info (10041): Inferred latch for "Product_D[7]" at SAM.v(90)
+Info (10041): Inferred latch for "Product_D[8]" at SAM.v(90)
+Info (10041): Inferred latch for "Product_D[9]" at SAM.v(90)
+Info (10041): Inferred latch for "Product_D[10]" at SAM.v(90)
+Info (10041): Inferred latch for "Product_D[11]" at SAM.v(90)
+Info (10041): Inferred latch for "Product_D[12]" at SAM.v(90)
+Info (10041): Inferred latch for "Product_D[13]" at SAM.v(90)
+Info (10041): Inferred latch for "Product_D[14]" at SAM.v(90)
+Info (10041): Inferred latch for "Product_D[15]" at SAM.v(90)
+Info (12128): Elaborating entity "RD" for hierarchy "ALU:alu|RD:divider"
+Warning (10230): Verilog HDL assignment warning at RD.v(154): truncated value with size 32 to match size of target (16)
+Warning (10230): Verilog HDL assignment warning at RD.v(204): truncated value with size 32 to match size of target (5)
+Warning (10240): Verilog HDL Always Construct warning at RD.v(159): inferring latch(es) for variable "Quotient_D", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at RD.v(159): inferring latch(es) for variable "Remainder_D", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at RD.v(159): inferring latch(es) for variable "Count_D", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at RD.v(159): inferring latch(es) for variable "State_D", which holds its previous value in one or more paths through the always construct
+Warning (10230): Verilog HDL assignment warning at RD.v(244): truncated value with size 32 to match size of target (16)
+Warning (10230): Verilog HDL assignment warning at RD.v(250): truncated value with size 32 to match size of target (16)
+Info (10041): Inferred latch for "State_D.DONE" at RD.v(159)
+Info (10041): Inferred latch for "State_D.WORK" at RD.v(159)
+Info (10041): Inferred latch for "State_D.IDLE" at RD.v(159)
+Info (10041): Inferred latch for "Count_D[0]" at RD.v(159)
+Info (10041): Inferred latch for "Count_D[1]" at RD.v(159)
+Info (10041): Inferred latch for "Count_D[2]" at RD.v(159)
+Info (10041): Inferred latch for "Count_D[3]" at RD.v(159)
+Info (10041): Inferred latch for "Count_D[4]" at RD.v(159)
+Info (10041): Inferred latch for "Remainder_D[0]" at RD.v(159)
+Info (10041): Inferred latch for "Remainder_D[1]" at RD.v(159)
+Info (10041): Inferred latch for "Remainder_D[2]" at RD.v(159)
+Info (10041): Inferred latch for "Remainder_D[3]" at RD.v(159)
+Info (10041): Inferred latch for "Remainder_D[4]" at RD.v(159)
+Info (10041): Inferred latch for "Remainder_D[5]" at RD.v(159)
+Info (10041): Inferred latch for "Remainder_D[6]" at RD.v(159)
+Info (10041): Inferred latch for "Remainder_D[7]" at RD.v(159)
+Info (10041): Inferred latch for "Remainder_D[8]" at RD.v(159)
+Info (10041): Inferred latch for "Remainder_D[9]" at RD.v(159)
+Info (10041): Inferred latch for "Remainder_D[10]" at RD.v(159)
+Info (10041): Inferred latch for "Remainder_D[11]" at RD.v(159)
+Info (10041): Inferred latch for "Remainder_D[12]" at RD.v(159)
+Info (10041): Inferred latch for "Remainder_D[13]" at RD.v(159)
+Info (10041): Inferred latch for "Remainder_D[14]" at RD.v(159)
+Info (10041): Inferred latch for "Remainder_D[15]" at RD.v(159)
+Info (10041): Inferred latch for "Quotient_D[0]" at RD.v(159)
+Info (10041): Inferred latch for "Quotient_D[1]" at RD.v(159)
+Info (10041): Inferred latch for "Quotient_D[2]" at RD.v(159)
+Info (10041): Inferred latch for "Quotient_D[3]" at RD.v(159)
+Info (10041): Inferred latch for "Quotient_D[4]" at RD.v(159)
+Info (10041): Inferred latch for "Quotient_D[5]" at RD.v(159)
+Info (10041): Inferred latch for "Quotient_D[6]" at RD.v(159)
+Info (10041): Inferred latch for "Quotient_D[7]" at RD.v(159)
+Info (10041): Inferred latch for "Quotient_D[8]" at RD.v(159)
+Info (10041): Inferred latch for "Quotient_D[9]" at RD.v(159)
+Info (10041): Inferred latch for "Quotient_D[10]" at RD.v(159)
+Info (10041): Inferred latch for "Quotient_D[11]" at RD.v(159)
+Info (10041): Inferred latch for "Quotient_D[12]" at RD.v(159)
+Info (10041): Inferred latch for "Quotient_D[13]" at RD.v(159)
+Info (10041): Inferred latch for "Quotient_D[14]" at RD.v(159)
+Info (10041): Inferred latch for "Quotient_D[15]" at RD.v(159)
+Info (286030): Timing-Driven Synthesis is running
+Info (17049): 669 registers lost all their fanouts during netlist optimizations.
+Info (144001): Generated suppressed messages file C:/Users/oroji/Desktop/kia/output_files/D.map.smsg
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Warning (21074): Design contains 1 input pin(s) that do not drive logic
+    Warning (15610): No output dependent on input pin "Clock"
+Info (21057): Implemented 5 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 3 input pins
+    Info (21059): Implemented 1 output pins
+    Info (21061): Implemented 1 logic cells
+Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 40 warnings
+    Info: Peak virtual memory: 4640 megabytes
+    Info: Processing ended: Sun Jul 20 06:46:33 2025
+    Info: Elapsed time: 00:00:04
+    Info: Total CPU time (on all processors): 00:00:03
+
+
++------------------------------------------+
+; Analysis & Synthesis Suppressed Messages ;
++------------------------------------------+
+The suppressed messages can be found in C:/Users/oroji/Desktop/kia/output_files/D.map.smsg.
+
+
